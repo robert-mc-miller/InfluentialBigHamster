@@ -1,25 +1,36 @@
 
-function openModal(id){
+$(window).on('load', () => {
+
+    let username = getCookie('username')
+
+    if (username) {
+        loadGame(username)
+    }
+
+    saveInterval = setInterval(() => {
+        saveGame()
+    }, 1000 * 60)
+})
+
+$(window).on('beforeunload', () => {
+    if (Object.keys(game).includes('username')) {
+        document.cookie = `username=${game.username}`
+    }
+    saveGame()
+})
+
+function openModal(id) {
     document.getElementById(id).style.display = 'flex';
 }
 
-function closeModal(id){
+function closeModal(id) {
     document.getElementById(id).style.display = 'none';
 }
 
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();
-const game =
-{
-    'username': "",
-    'date': 28 * msInADay,
-    'player': {
-        'monthlyIncome': 0,
-        'balance': 0,
-        'happiness': 0,
-        'level': 0
-    }
-}
+let game = {}
+let saveInterval
 
 $('document').ready(() => {                                                                             // Run once HTML is rendered
     $('#incDate').on("click", () => {
@@ -27,14 +38,18 @@ $('document').ready(() => {                                                     
     })
 })
 
-function increaseDate(n = 1)
-{
+function increaseDate(n = 1) {
     let dateElement = document.getElementById("date");                                                  // Get HTML element of game date
     let upcomingElement = document.getElementById("upcoming");                                          // Get HTML element of upcoming expenses
     let date = new Date(game.date);                                                                     // Parse game date from JSON into date
     let newDate = new Date(date.getTime() + n * msInADay);                                              // Get the new date with added days
+<<<<<<< HEAD
     let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
     let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
+=======
+    let day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
+    let month = newDate.getMonth() < 10 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
+>>>>>>> 3e892cb553f20d11542dfe88f60f4d323ea9e07e
 
     game.date = newDate.getTime();                                                                      // Update JSON on client machine
 
@@ -49,13 +64,11 @@ function increaseDate(n = 1)
     nextRent -= n;                                                                                      // Decrement days until rent
     nextFood -= n;                                                                                      // Decrement days until food
 
-    while(nextRent < 0)
-    {
+    while (nextRent < 0) {
         nextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());                      // Adjust new days left if going to a new month
         payRent()
     }
-    while(nextFood < 0)
-    {
+    while (nextFood < 0) {
         nextFood += 7
     }
 
@@ -68,6 +81,7 @@ function increaseDate(n = 1)
     nextRentText = nextRent == 0 ? "Today" : nextRentText;
     nextFoodText = nextFood == 0 ? "Today" : nextFoodText;
 
+<<<<<<< HEAD
     upcomingElement.innerHTML = `Rent: £${determineRent()} - ${nextRentText}<br><br>Food: £${determineFood()} - ${nextFoodText}`;
 }
 
@@ -177,3 +191,55 @@ function vibeCheck()
         }
     } 
 }
+=======
+    upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
+}
+
+function getCookie(name) {
+    for (let cookie of document.cookie.split(';')) {
+        let parts = cookie.split('=')
+        if (parts[0] === name) {
+            return parts[1]
+        }
+    }
+    return undefined
+}
+
+function loadGame(username) {
+    $.ajax({
+        method: 'post',
+        url: '/load',
+        contentType: 'application/json',
+        data: JSON.stringify({ username }),
+        success: (data) => {
+            game = data
+        }
+    })
+}
+
+function saveGame() {
+    if (Object.keys(game).length > 0) {
+        $.ajax({
+            method: 'POST',
+            url: '/save',
+            contentType: 'application/json',
+            data: JSON.stringify(game)
+        })
+    }
+    else {
+        console.log('No game to save')
+    }
+}
+
+function createGame(username) {
+    $.ajax({
+        method: 'post',
+        url: '/create',
+        contentType: 'application/json',
+        data: JSON.stringify({ username }),
+        success: (data) => {
+            game = data
+        }
+    })
+}
+>>>>>>> 3e892cb553f20d11542dfe88f60f4d323ea9e07e
