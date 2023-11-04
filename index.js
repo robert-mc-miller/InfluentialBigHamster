@@ -2,10 +2,12 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cookieParser())
 app.use(express.static('public'))
 
 app.post('/load', (req, res) => {
@@ -52,8 +54,30 @@ app.post('/create', (req, res) => {
         }
 
         fs.writeFileSync(path.resolve(__dirname, `./games/${username}.json`), JSON.stringify(game))
-        res.json(game)
+        res.status(200)
     }
+})
+
+app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
+    const username = req.body.username
+
+    if (!fs.existsSync(path.resolve(__dirname, `./games/${username}.json`))) {
+        const game = {
+            username,
+            date: 0,
+            player: {
+                monthlyIncome: 1600,
+                balance: 0,
+                happiness: 1,
+                level: 0
+            }
+        }
+
+        fs.writeFileSync(path.resolve(__dirname, `./games/${username}.json`), JSON.stringify(game))
+    }
+
+    res.cookie('username', username)
+    res.redirect('/')
 })
 
 app.listen(8080, () => {

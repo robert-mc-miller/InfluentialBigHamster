@@ -6,6 +6,9 @@ $(window).on('load', () => {
     if (username) {
         loadGame(username)
     }
+    else {
+        window.location.href = '/login.html'
+    }
 
     saveInterval = setInterval(() => {
         saveGame()
