@@ -24,8 +24,8 @@ function increaseDate(n = 1)
     let upcomingElement = document.getElementById("upcoming");                                          // Get HTML element of upcoming expenses
     let date = new Date(game.date);                                                                     // Parse game date from JSON into date
     let newDate = new Date(date.getTime() + n * msInADay);                                              // Get the new date with added days
-    let day = newDate.getDate() < 10? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
-    let month = newDate.getMonth() < 10? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
+    let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
+    let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
 
     game.date = newDate.getTime();                                                                      // Update JSON on client machine
 
@@ -43,12 +43,12 @@ function increaseDate(n = 1)
     while(nextRent < 0)
     {
         nextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());                      // Adjust new days left if going to a new month
+        payRent()
     }
     while(nextFood < 0)
     {
         nextFood += 7
     }
-
 
     let nextRentText = ""
     let nextFoodText = ""
@@ -59,7 +59,51 @@ function increaseDate(n = 1)
     nextRentText = nextRent == 0 ? "Today" : nextRentText;
     nextFoodText = nextFood == 0 ? "Today" : nextFoodText;
 
-    upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
+    upcomingElement.innerHTML = `Rent: £${determineRent()} - ${nextRentText}<br><br>Food: £${determineFood()} - ${nextFoodText}`;
+}
+
+function determineRent()
+{
+    return (Math.ceil(1 + (1/15)*(Math.pow(game.player.level, 18/10))*6)*100);
+}
+
+function determineFood()
+{
+    return (40+(2*(game.player.level)));
+}
+
+function payRent()
+{
+    if(game.player.balance >= determineRent(game.player.level))
+    {
+        game.player.balance -= determineRent(game.player.level);
+    }
+    else
+    {
+        if(game.player.level > 1)
+        {
+            game.player.level = game.player.level - 1;
+        }
+    }
+}
+
+function payFood(happiness)
+{
+    if(game.player.balance >= determineFood(level))
+    {
+        game.player.balance = game.player.balance - determineFood(level);
+    }
+    else
+    {
+        if(happiness >= 0.25)
+        {
+            happiness = happiness - 0.25;
+        }
+        else
+        {
+            happiness = 0;
+        }
+    }
 }
 
 function workTask()
