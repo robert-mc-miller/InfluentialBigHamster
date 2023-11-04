@@ -1,0 +1,75 @@
+/* "navbar" styling */
+
+#incDate {
+    width: 204px;
+    height: 50px;
+    border-radius: 20px;
+    background: #D90429;
+    box-shadow: 0px 4px 5px 1px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+}
+
+#incDate:hover {
+    box-shadow: 0px 4px 5px 1px rgba(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+}
+
+#date {
+    color: #FFF;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* button styling */
+
+#buttons {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 21vh;
+}
+
+#buttons span {
+    margin-top: 1vh;
+}
+
+#buttons button {
+    width: 8vw;
+    height: 9.4vh;
+    background-color: #D90429;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+#buttons #homeUpgrades {
+    width: 16.1vw;
+    display: flex;
+    align-items: center;
+}
+
+#funActivities {
+    display: none;
+}
+
+/* upcoming Styling */
+
+#expenditures p {
+    display: inline;
+}
