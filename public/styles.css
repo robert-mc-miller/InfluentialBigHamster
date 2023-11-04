@@ -230,9 +230,9 @@ progress[value] {
     /* Reset the default appearance */
     -webkit-appearance: none;
      appearance: none;
-  
     width: 250px;
     height: 20px;
+    linear-gradient(red,0, 0) 0 /calc(var(--w)*.3 - 100%) 1px,
   }
 
 progress[value]::-webkit-progress-bar {
