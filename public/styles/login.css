@@ -31,3 +31,15 @@ button{
     cursor: pointer;
     color: #ffffff;
 }
+
+@media only screen and (max-width: 600px) {
+	form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    button{
+        margin-top: 2vh;
+        width: 40vw;
+    }
+}

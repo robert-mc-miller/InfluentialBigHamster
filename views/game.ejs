@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <title>Money Game</title>
     <link rel="stylesheet" href="/styles/global.css">
     <link rel="stylesheet" href="/styles/game.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -82,8 +82,10 @@
 
 
     <div id="buttons">
+        <button class="buttons2" id="fun" onclick="openModal('funActivities')"><img src="/assets/images/Material Symbols (2)..svg"></button>
         <button id="homeUpgrades" onclick="openModal('upgrades')"><img src="/assets/images/Material Symbols 1.svg"></button>
-        <span>
+        <button class="buttons2" id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
+        <span class="buttons1">
             <button id="fun" onclick="openModal('funActivities')"><img src="/assets/images/Material Symbols (2)..svg"></button>
             <h1 id="level">0</h1>
             <button id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
