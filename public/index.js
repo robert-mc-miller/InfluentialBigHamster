@@ -77,7 +77,7 @@ function increaseDate(n = 1)
         nFoodToPay++;
     }
 
-    updateDisplay()
+    updateDisplay(nRentToPay, nFoodToPay);
 
     let nextRentText = ""
     let nextFoodText = ""
@@ -92,12 +92,12 @@ function increaseDate(n = 1)
     nextFoodElement.innerHTML = nextFoodText;
 }
 
-function updateDisplay()
+function updateDisplay(rent = 0, food = 0)
 {
     document.getElementById("rentPrice").innerHTML = `$${determineRent()}`;
     document.getElementById("foodPrice").innerHTML = `$${determineFood()}`;
     document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`;
-    updateBalance(determineRent(), determineRent());
+    updateBalance(rent, food);
     document.getElementById("balance").innerHTML = `$${game.player.balance}`;
 }
 
@@ -106,7 +106,7 @@ function updateBalance(rent, food)
     for(let r = 1; r <= rent; r++)
     {
         payRent();
-        //game.player.balance += game.player.monthlyIncome;
+        game.player.balance += game.player.monthlyIncome;
     }
 
     for(let f = 1; f <= food; f++)
