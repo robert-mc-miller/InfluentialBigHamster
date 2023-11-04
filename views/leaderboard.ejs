@@ -23,86 +23,16 @@
     <h4>Happiness</h4>
 </div>
 
+<% for (let user of users) { %>
 <div class="user">
-    <p>1</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
+    <p><%= user.position %></p>
+    <p><%= user.username %></p>
+    <p><%= user.level %></p>
+    <p><%= user.balance %></p>
+    <p><%= user.happiness %></p>
 </div>
+<% } %>
 
-<div class="user">
-    <p>2</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>3</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>4</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>5</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>6</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>7</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>8</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>9</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>10</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-    
     <div id="menu">
         <a href="/"><button id="manage"><img src="/assets/images/person fill0.svg"></button></a>
         <a href="/leaderboard"><button id="leaderboard"><img src="/assets/images/Material Symbols Trophy.svg"></button></a>
