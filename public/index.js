@@ -1,4 +1,24 @@
 
+$(window).on('load', () => {
+
+    let username = getCookie('username')
+
+    if (username) {
+        loadGame(username)
+    }
+
+    saveInterval = setInterval(() => {
+        saveGame()
+    }, 1000 * 60)
+})
+
+$(window).on('beforeunload', () => {
+    if (Object.keys(game).includes('username')) {
+        document.cookie = `username=${game.username}`
+    }
+    saveGame()
+})
+
 function openModal(id) {
     document.getElementById(id).style.display = 'flex';
 }
@@ -9,17 +29,8 @@ function closeModal(id) {
 
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();
-const game =
-{
-    'username': "",
-    'date': 28 * msInADay,
-    'player': {
-        'monthlyIncome': 0,
-        'balance': 0,
-        'happiness': 0,
-        'level': 0
-    }
-}
+let game = {}
+let saveInterval
 
 $('document').ready(() => {                                                                             // Run once HTML is rendered
     $('#incDate').on("click", () => {
@@ -66,4 +77,52 @@ function increaseDate(n = 1) {
     nextFoodText = nextFood == 0 ? "Today" : nextFoodText;
 
     upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
+}
+
+function getCookie(name) {
+    for (let cookie of document.cookie.split(';')) {
+        let parts = cookie.split('=')
+        if (parts[0] === name) {
+            return parts[1]
+        }
+    }
+    return undefined
+}
+
+function loadGame(username) {
+    $.ajax({
+        method: 'post',
+        url: '/load',
+        contentType: 'application/json',
+        data: JSON.stringify({ username }),
+        success: (data) => {
+            game = data
+        }
+    })
+}
+
+function saveGame() {
+    if (Object.keys(game).length > 0) {
+        $.ajax({
+            method: 'POST',
+            url: '/save',
+            contentType: 'application/json',
+            data: JSON.stringify(game)
+        })
+    }
+    else {
+        console.log('No game to save')
+    }
+}
+
+function createGame(username) {
+    $.ajax({
+        method: 'post',
+        url: '/create',
+        contentType: 'application/json',
+        data: JSON.stringify({ username }),
+        success: (data) => {
+            game = data
+        }
+    })
 }
