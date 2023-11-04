@@ -5,11 +5,13 @@ $(window).on('load', () => {
 
     if (username) {
         loadGame(username)
+        updateDisplay();
     }
 
     saveInterval = setInterval(() => {
         saveGame()
     }, 1000 * 60)
+
 })
 
 $(window).on('beforeunload', () => {
@@ -29,8 +31,8 @@ function closeModal(id) {
 
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();
-let game = {}
-let saveInterval
+let game = {};
+let saveInterval;
 
 $('document').ready(() => {                                                                             // Run once HTML is rendered
     $('#incDate').on("click", () => {
@@ -38,51 +40,79 @@ $('document').ready(() => {                                                     
     })
 })
 
-function increaseDate(n = 1) {
+function increaseDate(n = 1)
+{
     let dateElement = document.getElementById("date");                                                  // Get HTML element of game date
-    let upcomingElement = document.getElementById("upcoming");                                          // Get HTML element of upcoming expenses
     let date = new Date(game.date);                                                                     // Parse game date from JSON into date
     let newDate = new Date(date.getTime() + n * msInADay);                                              // Get the new date with added days
-<<<<<<< HEAD
     let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
     let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
-=======
-    let day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`;                 // Format date and month
-    let month = newDate.getMonth() < 10 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`;
->>>>>>> 3e892cb553f20d11542dfe88f60f4d323ea9e07e
 
     game.date = newDate.getTime();                                                                      // Update JSON on client machine
 
     dateElement.innerHTML = `${day}/${month}`;                                                          // Update date on HTML
 
-    let nextRent = parseInt((upcomingElement.innerHTML).split("<br>")[0].split(" ")[3]);                // Get previous days before next rent payment
-    let nextFood = parseInt((upcomingElement.innerHTML).split("<br>")[2].split(" ")[3]);                // Get previous days before next food payment
+    let nextRentElement = document.getElementById("rentTimeUntil");
+    let nextFoodElement = document.getElementById("foodTimeUntil");
+    let timeUntilNextRent = nextRentElement.innerHTML.split(" ")[0];                                    // Get previous days before next rent payment
+    let timeUntilNextFood = nextFoodElement.innerHTML.split(" ")[0];                                    // Get previous days before next food payment
 
-    nextRent = Number.isNaN(nextRent) ? 0 : nextRent                                                    // Fix interpreted date if it is "Today"
-    nextFood = Number.isNaN(nextFood) ? 0 : nextFood                                                    // Fix interpreted date if it is "Today"
+    timeUntilNextRent = timeUntilNextRent == "Today" ? 0 : timeUntilNextRent;                           // Fix interpreted date if it is "Today"
+    timeUntilNextFood = timeUntilNextFood == "Today" ? 0 : timeUntilNextFood;                           // Fix interpreted date if it is "Today"
 
-    nextRent -= n;                                                                                      // Decrement days until rent
-    nextFood -= n;                                                                                      // Decrement days until food
+    timeUntilNextRent -= n;                                                                             // Decrement days until rent
+    timeUntilNextFood -= n;                                                                             // Decrement days until food
 
-    while (nextRent < 0) {
-        nextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());                      // Adjust new days left if going to a new month
-        payRent()
+    let nRentToPay = 0
+    let nFoodToPay = 0
+
+    while(timeUntilNextRent < 0)
+    {
+        timeUntilNextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());             // Adjust new days left if going to a new month
+        nRentToPay++;
     }
-    while (nextFood < 0) {
-        nextFood += 7
+    while(timeUntilNextFood < 0)
+    {
+        timeUntilNextFood += 7;
+        nFoodToPay++;
     }
+
+    updateDisplay()
 
     let nextRentText = ""
     let nextFoodText = ""
 
-    nextRentText = nextRent == 1 ? `${nextRent} day` : `${nextRent} days`;                              // Format display of days left
-    nextFoodText = nextFood == 1 ? `${nextFood} day` : `${nextFood} days`;
+    nextRentText = timeUntilNextRent == 1 ? `${timeUntilNextRent} day` : `${timeUntilNextRent} days`;   // Format display of days left
+    nextFoodText = timeUntilNextFood == 1 ? `${timeUntilNextFood} day` : `${timeUntilNextFood} days`;
 
-    nextRentText = nextRent == 0 ? "Today" : nextRentText;
-    nextFoodText = nextFood == 0 ? "Today" : nextFoodText;
+    nextRentText = timeUntilNextRent == 0 ? "Today" : nextRentText;
+    nextFoodText = timeUntilNextFood == 0 ? "Today" : nextFoodText;
 
-<<<<<<< HEAD
-    upcomingElement.innerHTML = `Rent: £${determineRent()} - ${nextRentText}<br><br>Food: £${determineFood()} - ${nextFoodText}`;
+    nextRentElement.innerHTML = nextRentText;
+    nextFoodElement.innerHTML = nextFoodText;
+}
+
+function updateDisplay()
+{
+    document.getElementById("rentPrice").innerHTML = `$${determineRent()}`;
+    document.getElementById("foodPrice").innerHTML = `$${determineFood()}`;
+    document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`;
+    updateBalance(determineRent(), determineRent());
+    document.getElementById("balance").innerHTML = `$${game.player.balance}`;
+}
+
+function updateBalance(rent, food)
+{
+    for(let r = 1; r <= rent; r++)
+    {
+        payRent();
+        //game.player.balance += game.player.monthlyIncome;
+    }
+
+    for(let f = 1; f <= food; f++)
+    {
+        payFood();
+    }
 }
 
 function determineRent()
@@ -97,9 +127,9 @@ function determineFood()
 
 function payRent()
 {
-    if(game.player.balance >= determineRent(game.player.level))
+    if(game.player.balance >= determineRent())
     {
-        game.player.balance -= determineRent(game.player.level);
+        game.player.balance -= determineRent();
     }
     else
     {
@@ -112,9 +142,9 @@ function payRent()
 
 function payFood(happiness)
 {
-    if(game.player.balance >= determineFood(level))
+    if(game.player.balance >= determineFood())
     {
-        game.player.balance = game.player.balance - determineFood(level);
+        game.player.balance -= determineFood();
     }
     else
     {
@@ -191,9 +221,7 @@ function vibeCheck()
         }
     } 
 }
-=======
-    upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
-}
+
 
 function getCookie(name) {
     for (let cookie of document.cookie.split(';')) {
@@ -242,4 +270,3 @@ function createGame(username) {
         }
     })
 }
->>>>>>> 3e892cb553f20d11542dfe88f60f4d323ea9e07e
