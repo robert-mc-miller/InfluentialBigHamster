@@ -1,3 +1,11 @@
+
+function openModal(id){
+    document.getElementById(id).style.display = 'flex';
+}
+
+function closeModal(id){
+    document.getElementById(id).style.display = 'none';
+
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();
 const game =

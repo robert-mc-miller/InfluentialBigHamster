@@ -8,12 +8,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="index.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
     <div id="top">
         <p id="date">12/08/2000</p>
         <h1>The Title</h1>
         <button id="incDate">Next</button>
+    </div>
+
+
+
+    <div id="upgrades" class="modal">
+        <button id="happinessUpgrade" onclick="closeModal('upgrades')">+5 Happiness<br>+1 level</button>
+        <button id="incomeUpgrade" onclick="closeModal('upgrades')">+5 Income<br>+1 level</button>
+    </div>
+
+    <div id="funActivities" class="modal">
+        <button id="act1" onclick="closeModal('funActivities')">Activity 1</button>
+        <button id="act2" onclick="closeModal('funActivities')">Activitiy 2</button>
+        <button id="act3" onclick="closeModal('funActivities')">Activity 3</button>
+        <button id="act4" onclick="closeModal('funActivities')">Activity 4</button>
+    </div>
+
+    <div id="learnActivities" class="modal">
+        <button id="learn1" onclick="closeModal('learnActivities')">+1 Income<br>+1 Day</button>
+        <button id="learn2" onclick="closeModal('learnActivities')">+2 Income<br>+2 Day</button>
+        <button id="learn2" onclick="closeModal('learnActivities')">+3 Income<br>+5 Day</button>
+        <button id="learn2" onclick="closeModal('learnActivities')">+10 Income<br>+14 Day</button>
     </div>
 
     <main>
@@ -33,20 +55,18 @@
     <h2 id="balance">$1000000</h2>
 
     <div id="buttons">
-        <button id="homeUpgrades">Home Upgrades</button>
-        <button id="fun">Fun Activities</button>
-        <button id="learn">Learn</button>
+        <button id="homeUpgrades" onclick="openModal('upgrades')">Home Upgrades</button>
+        <span>
+            <button id="fun" onclick="openModal('funActivities')">Fun Activities</button>
+            <button id="learn" onclick="openModal('learnActivities')">Learn</button>
+        </span>
     </div>
 
-    <div id="funActivities">
-        <button id="act1">Activity 1</button>
-        <button id="act2">Activitiy 2</button>
-        <button id="act3">Activity 3</button>
-        <button id="act4">Activity 4</button>
-    </div>
     
-
-    <button id="manage">Manage</button>
-    <button id="leaderboard">Leaderboard</button>
+    <div id="menu">
+        <button id="manage"><img src="./images/person fill0.svg"></button>
+        <a href="leaderboard.html"><button id="leaderboard"><img src="./images/Material Symbols Trophy.svg"></button></a>
+        <button id="settings"><img src="./images/settings.svg"></button>
+    </div>
 </body>
 </html>
