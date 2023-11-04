@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 
+app.set('view engine', 'ejs')
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static('public'))
@@ -78,6 +79,18 @@ app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
 
     res.cookie('username', username)
     res.redirect('/')
+})
+
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
+app.get('/', (req, res) => {
+    res.render('game')
+})
+
+app.get('/leaderboard', (req, res) => {
+    res.render('leaderboard')
 })
 
 if (!fs.existsSync(path.resolve(__dirname, './games/'))) {
