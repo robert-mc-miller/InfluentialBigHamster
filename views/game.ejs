@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Document</title>
-    <link rel="stylesheet" href="../public/styles/game.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/game.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <script type="text/javascript" src="index.js"></script>
+    
 </head>
 <body>
     <nav>
@@ -18,8 +19,8 @@
         </span>
         <h1>Money Game</h1>
         <span>
-            <a href="index.html"><img src="../public/assets/images/person fill0.svg"></a>
-            <a href="leaderboard.html"><img src="../public/assets/images/Material Symbols Trophy.svg"></a>
+            <a href="/"><img src="/assets/images/person fill0.svg"></a>
+            <a href="/leaderboard"><img src="/assets/images/Material Symbols Trophy.svg"></a>
         </span>
     </nav>
 
@@ -81,16 +82,16 @@
 
 
     <div id="buttons">
-        <button id="homeUpgrades" onclick="openModal('upgrades')"><img src="../public/assets/images/Material Symbols 1.svg"></button>
+        <button id="homeUpgrades" onclick="openModal('upgrades')"><img src="/assets/images/Material Symbols 1.svg"></button>
         <span>
-            <button id="fun" onclick="openModal('funActivities')"><img src="../public/assets/images/Material Symbols (2)..svg"></button>
+            <button id="fun" onclick="openModal('funActivities')"><img src="/assets/images/Material Symbols (2)..svg"></button>
             <h1 id="level">1</h1>
-            <button id="learn" onclick="openModal('learnActivities')"><img src="../public/assets/images/Material Symbols and Icons (2)..svg"></button>
+            <button id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
         </span>
     </div>
 
     
-
+    <script type="text/javascript" src="/scripts/game.js"></script>
 </body>
 </html>
 
