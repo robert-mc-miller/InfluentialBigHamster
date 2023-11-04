@@ -21,8 +21,6 @@ main{
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.05);
     box-shadow: 0px 4px 4px 0px #000;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
     align-items: center;
 }
 
@@ -61,39 +59,9 @@ p, h4{
 
 #buttons{
     margin-top: 5vh;
+}  
 
-/* "navbar" styling */
-
-#incDate {
-    width: 204px;
-    height: 50px;
-    border-radius: 20px;
-    background: #D90429;
-    box-shadow: 0px 4px 5px 1px rgba(0, 0, 0, 0.25);
-    color: #FFF;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: normal;
-    border: none;
-}
-
-#incDate:hover {
-    box-shadow: 0px 4px 5px 1px rgba(0, 0, 0, 0.25) inset;
-    cursor: pointer;
-}
-
-#date {
-    color: #FFF;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: normal;
-}
-
-
-
-#funActivities{
+.buttons2{
     display: none;
 }
 
@@ -129,3 +97,86 @@ progress[value]::-webkit-progress-bar {
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
   }
+
+
+
+/* Phone view */
+
+@media only screen and (max-width: 600px) {
+    h1{
+        display: none;
+    }
+
+    #trophy{
+        margin-left: 1vw;
+    }
+
+    nav span{
+        width: 60vw;
+        justify-content: center;
+    }
+
+    #incDate{
+        width: 70vw;
+        margin-left: 5vw;
+    }
+
+    main{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #date{
+        margin-left: 20vw;
+    }
+
+    main{
+        height: 70vh;
+        margin-top: 0;
+        padding-bottom: 2vh;
+    }
+
+    #money{
+        display: block;
+        font-size: 16vh;
+    }
+
+    #level{
+        display: none;
+    }
+
+    #buttons button{
+        width: 20vw;
+        height: 20vw;
+    }
+
+    .buttons2{
+        display: block;
+    }
+
+    #buttons span{
+        visibility: hidden;
+    }
+
+    #buttons{
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    #buttons img{
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .modal button{
+        width: 40vw;
+        height: 40vw;
+    }
+
+    #learnActivities, #funActivities{
+        flex-direction: column;
+    }
+
+
+}

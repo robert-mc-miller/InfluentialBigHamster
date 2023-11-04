@@ -20,3 +20,32 @@
     align-items: center;
 }
 
+#back{
+    display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #headings{
+        display: none;
+    }
+    
+    nav{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav span{
+        display: none;
+    }
+
+    #back{
+        display: block;
+    }
+
+    h1{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
