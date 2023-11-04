@@ -6,7 +6,7 @@ $(window).on('load', () => {
         loadGame(username);
     }
     else {
-        window.location.href = '/login.html'
+        window.location.href = '/login'
     }
 
     saveInterval = setInterval(() => {
@@ -105,6 +105,7 @@ function updateDisplay(rent = 0, food = 0)
     document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`;
     updateBalance(rent, food);
     document.getElementById("balance").innerHTML = `$${game.player.balance}`;
+    document.getElementById("happiness").innerHTML = `Happiness: ${game.player.happiness}`;
 }
 
 function updateBalance(rent, food)
@@ -139,14 +140,15 @@ function payRent()
     }
     else
     {
-        if(game.player.level > 1)
+        if(game.player.level > 0)
         {
             game.player.level = game.player.level - 1;
+            unpaid("rent");
         }
     }
 }
 
-function payFood(happiness)
+function payFood()
 {
     if(game.player.balance >= determineFood())
     {
@@ -154,25 +156,61 @@ function payFood(happiness)
     }
     else
     {
-        if(happiness >= 0.25)
+        if(game.player.happiness >= 0.25)
         {
-            happiness = happiness - 0.25;
+            game.player.happiness = game.player.happiness - 0.25;
         }
         else
         {
-            happiness = 0;
+            game.player.happiness = 0;
         }
+        unpaid("food");
     }
 }
 
-function workTask()
+function unpaid(type)
 {
-    if(game.player.balance >=100)
+    document.getElementById(type).style.display = "block";
+}
+
+function workTask(menuChoice){
+    switch(menuChoice)
     {
-        game.player.monthlyIncome += 250;
-        game.player.happiness -= 0.05;
-        game.player.balance -= 100;
-        increaseDate(3);
+        case 1:                                                                                             // 
+            if(game.player.balance >= 100)
+            {
+                game.player.monthlyIncome += 50;
+                game.player.balance -= 100;
+                game.player.happiness -= 0.03;
+                increaseDate();        
+            }
+
+        case 2:                                                                                         // 
+            if(game.player.balance >= 300)
+            {
+                game.player.monthlyIncome += 150;
+                game.player.balance -= 300;
+                game.player.happiness -= 0.06;
+                increaseDate(3);
+            }
+        
+        case 3:
+            if(game.player.balance >= 500)                                                              //
+            {
+                game.player.monthlyIncome += 300;
+                game.player.balance -= 500;
+                game.player.happiness -= 0.12;
+                increaseDate(7);
+            }
+        
+        case 4:
+            if(game.player.balance >= 1050)                                                             //
+            {
+                game.player.monthlyIncome += 600;
+                game.player.balance -= 1050;
+                game.player.happiness -= 0.24;
+                increaseDate(14);
+            }
     }
 }
 
@@ -237,6 +275,11 @@ function levelUpgrade()
         game.player.happiness += 0.1;
         updateDisplay();
     }
+}
+
+function error()
+{
+    document.getElementById("error").style.display = "block";
 }
 
 function getCookie(name) {

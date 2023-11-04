@@ -67,9 +67,9 @@ app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
             username,
             date: 0,
             player: {
-                monthlyIncome: 1600,
-                balance: 0,
-                happiness: 1,
+                monthlyIncome: 600,
+                balance: 1000,
+                happiness: 100,
                 level: 0
             }
         }
