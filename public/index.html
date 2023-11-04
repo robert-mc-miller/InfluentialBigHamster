@@ -8,22 +8,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    <p id="date">12/08/2000</p>
-    <button id="incDate">Next</button>
+    <div id="top">
+        <p id="date">12/08/2000</p>
+        <button id="incDate">Next</button>
+    </div>
 
-    <p id="happiness">Happiness: 100</p>
-    <p id="income">Income (per month): 1000</p>
+    <main>
+        <p id="happiness">Happiness: 100</p>
+        <p id="income">Income (per month): 1000</p>
 
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAH0AnQMBIgACEQEDEQH/xAAcAAEAAgIDAQAAAAAAAAAAAAAABwgFBgEDBAL/xAA/EAABAwMBBAUHBw0AAAAAAAAAAQIDBAURBgcSITETFFGRoQhBUmFxwcIiMjNygbHRIyUmQ1NVc4KSoqOy4f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCZQAAAAAAAAAAAOqoqqalwtVUwwo7l0j0bnvUDtBwxzXtRzHI5q8UVq5RTkAAAAAAAAAAAAAAAAAAAAAAxupbqlj0/cLorN/qsDpEb6SpyTvwVJu92rrzXSV10qX1NTIuXPevgickT1IW8vNuhu9pq7bU56GqhdE9U5oipz+zmVe1Hs/1JYq99NJbKmpiRfydRTROkZInbwzhfUvEDY9iWq6636nprJJM99vrlViROdlI5MKqOb2csY9ZYog/Y5s7uVNeYtQXylko46dFWmglbiR71TG8qeZERV58ck4AAAAAAAAAAAAAAAAAAAAACqiJleSARHtQ2q1FkuMlm062JaqHhU1Ujd5I3ei1OWU4ZVc9hFlRtC1hUP336ir2r2Ry7idzcIYi9zOrrzc6xuXJJUySud9Z68fEx4G6WnalrC3ytct2dVsTnHVtSRHe1efiT9oHV9LrGyJXQM6Goid0dTT5z0bvNhfOi80X8Cp7GOke1jEy5y4RO1SXPJ0qujvV3o1X6WnZJj6rlT4gJ4AAAAAAAAAAAAAAAAAAA8l4qOqWiuqf2NNJJ3NVfces1/aDP1bQ99lRcKlFIiL61THvArHZabpbFqGfH0FNCvszPGhhTddI0qP2f62qHN4NipGNX19LlfuQ0oDKaWiSfU9nhVMpJXQsx7XohvGxOTqe0ySnX9ZDUQr9nyvhNR0Czf1vYWr+8IV7nobVpJFt23HocbiJc6mLHqXfRPvQCxwAAAAAAAAAAAAAAAAAAGD1vaKm/aUuVronsZUVEW7Gr1w3KKi4X24wZwAQZUaUuOj9j+o2XZIm1NXUQKjI3726xHsTiveQ6iK5cNRVXGeBZnbe7d2dV6elLCn+RF9xA+hbYt1vM8CY+Tb6t3H+C9E8VQDz6JkWLWVicnmuEH+6Ex1Gzq8rtZbqGJ9M22dbbVK/pPlJwTLd3HNVyQtpV25qezu7K6Bf70LhrzUDgAAAAAAAAAAAAAAAAAAAABHu3d27s/mTPzqmJPH/hGuwWj63qyuymWttsrV9rlanvUkLb/Ju6Gjb6dbGng5fcav5N0P5yvdSqfMhiYi+1yr8IEV2ZHQX6h3uDo6uPKetHoXGKhXePqGsK2NeHV7i9P6ZFLetXKIoAAAAAAAAAAAAAAAAAAAAABFnlEO/RG3t7bi1e6N/4nm8nODdsV3qcfPqmxov1W5+I2bazpKv1dp+nprXJElRT1HSoyV2616bqoqZ8y8Tv2W6VqdIaZWhrnxuqpp3TypGuWtVURERF8/BqAQFtRgSm2gXyPdxmpV6fzIjveWpgXegjd2sRfAiDaLsru+odYyXS2S0zaasRnTLK9UWJWtRqrjHFMIi8CX4I+igjizncYjcr58JgD7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/9k=">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAH0AnQMBIgACEQEDEQH/xAAcAAEAAgIDAQAAAAAAAAAAAAAABwgFBgEDBAL/xAA/EAABAwMBBAUHBw0AAAAAAAAAAQIDBAURBgcSITETFFGRoQhBUmFxwcIiMjNygbHRIyUmQ1NVc4KSoqOy4f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCZQAAAAAAAAAAAOqoqqalwtVUwwo7l0j0bnvUDtBwxzXtRzHI5q8UVq5RTkAAAAAAAAAAAAAAAAAAAAAAxupbqlj0/cLorN/qsDpEb6SpyTvwVJu92rrzXSV10qX1NTIuXPevgickT1IW8vNuhu9pq7bU56GqhdE9U5oipz+zmVe1Hs/1JYq99NJbKmpiRfydRTROkZInbwzhfUvEDY9iWq6636nprJJM99vrlViROdlI5MKqOb2csY9ZYog/Y5s7uVNeYtQXylko46dFWmglbiR71TG8qeZERV58ck4AAAAAAAAAAAAAAAAAAAAACqiJleSARHtQ2q1FkuMlm062JaqHhU1Ujd5I3ei1OWU4ZVc9hFlRtC1hUP336ir2r2Ry7idzcIYi9zOrrzc6xuXJJUySud9Z68fEx4G6WnalrC3ytct2dVsTnHVtSRHe1efiT9oHV9LrGyJXQM6Goid0dTT5z0bvNhfOi80X8Cp7GOke1jEy5y4RO1SXPJ0qujvV3o1X6WnZJj6rlT4gJ4AAAAAAAAAAAAAAAAAAA8l4qOqWiuqf2NNJJ3NVfces1/aDP1bQ99lRcKlFIiL61THvArHZabpbFqGfH0FNCvszPGhhTddI0qP2f62qHN4NipGNX19LlfuQ0oDKaWiSfU9nhVMpJXQsx7XohvGxOTqe0ySnX9ZDUQr9nyvhNR0Czf1vYWr+8IV7nobVpJFt23HocbiJc6mLHqXfRPvQCxwAAAAAAAAAAAAAAAAAAGD1vaKm/aUuVronsZUVEW7Gr1w3KKi4X24wZwAQZUaUuOj9j+o2XZIm1NXUQKjI3726xHsTiveQ6iK5cNRVXGeBZnbe7d2dV6elLCn+RF9xA+hbYt1vM8CY+Tb6t3H+C9E8VQDz6JkWLWVicnmuEH+6Ex1Gzq8rtZbqGJ9M22dbbVK/pPlJwTLd3HNVyQtpV25qezu7K6Bf70LhrzUDgAAAAAAAAAAAAAAAAAAAABHu3d27s/mTPzqmJPH/hGuwWj63qyuymWttsrV9rlanvUkLb/Ju6Gjb6dbGng5fcav5N0P5yvdSqfMhiYi+1yr8IEV2ZHQX6h3uDo6uPKetHoXGKhXePqGsK2NeHV7i9P6ZFLetXKIoAAAAAAAAAAAAAAAAAAAAABFnlEO/RG3t7bi1e6N/4nm8nODdsV3qcfPqmxov1W5+I2bazpKv1dp+nprXJElRT1HSoyV2616bqoqZ8y8Tv2W6VqdIaZWhrnxuqpp3TypGuWtVURERF8/BqAQFtRgSm2gXyPdxmpV6fzIjveWpgXegjd2sRfAiDaLsru+odYyXS2S0zaasRnTLK9UWJWtRqrjHFMIi8CX4I+igjizncYjcr58JgD7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/9k=">
 
-    <h4>Upcoming Expenditures</h4>
-    <p id="upcoming">Rent: £100 - 2 days</p>
+        <h4>Upcoming Expenditures</h4>
+        <p id="upcoming">Rent: £100 - 2 days</p>
+    </main>
 
     <h2 id="balance">$1000000</h2>
 
-    <button id="homeUpgrades">Home Upgrades</button>
-    <button id="fun">Fun Activities</button>
-    <button id="learn">Learn</button>
+    <div id="buttons">
+        <button id="homeUpgrades">Home Upgrades</button>
+        <button id="fun">Fun Activities</button>
+        <button id="learn">Learn</button>
+    </div>
+
+    <div id="funActivities">
+        <button id="act1">Activity 1</button>
+        <button id="act2">Activitiy 2</button>
+        <button id="act3">Activity 3</button>
+        <button id="act4">Activity 4</button>
+    </div>
+    
 
     <button id="manage">Manage</button>
     <button id="leaderboard">Leaderboard</button>

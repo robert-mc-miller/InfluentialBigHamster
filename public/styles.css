@@ -1,0 +1,14 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button{
+    background-color: #EDF2F4;
+    border: 1px solid #EF233C;
+    border-radius: 25%;
+    width: 75vw;
+    display: flex;
+    justify-content: center;
+}
