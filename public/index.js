@@ -61,3 +61,66 @@ function increaseDate(n = 1)
 
     upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
 }
+
+function workTask()
+{
+    if(game.player.balance >=100)
+    {
+        game.player.monthlyIncome += 250;
+        game.player.happiness -= 0.05;
+        game.player.balance -= 100;
+        increaseDate(3);
+    }
+}
+
+function funActivity(menuChoice){
+    switch(menuChoice)
+    {
+    case 1:                                                                                             // 
+            if(game.player.balance >= 300)
+            {
+                game.player.happiness += 0.06;
+                game.player.balance -= 300;
+                increaseDate();        
+            }
+
+        case 2:                                                                                         // 
+            if(game.player.balance >= 510)
+            {
+                game.player.happiness += 0.12;
+                game.player.balance -= 510;
+                increaseDate(3);
+            }
+        
+        case 3:
+            if(game.player.balance >= 960)                                                              //
+            {
+                game.player.happiness += 0.24;
+                game.player.balance -= 960;
+                increaseDate(7);
+            }
+        
+        case 4:
+            if(game.player.balance >= 1800)                                                             //
+            {
+                game.player.happiness += 0.48;
+                game.player.balance -= 1800;
+                increaseDate(14);
+            }
+    }
+}
+
+function vibeCheck()
+{
+    if (game.player.happiness < 0.25)
+    {
+        if(game.player.monthlyIncome >= 1250)
+        {
+            game.player.monthlyIncome -= 500;    
+        }
+        else
+        {
+            game.player.monthlyIncome = 750;
+        }
+    } 
+}
