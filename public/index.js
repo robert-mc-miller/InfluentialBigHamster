@@ -4,8 +4,7 @@ $(window).on('load', () => {
     let username = getCookie('username')
 
     if (username) {
-        loadGame(username)
-        updateDisplay();
+        loadGame(username);
     }
     else {
         window.location.href = '/login.html'
@@ -40,7 +39,7 @@ let saveInterval;
 $('document').ready(() => {                                                                             // Run once HTML is rendered
     $('#incDate').on("click", () => {
         increaseDate();                                                                                 // Increment date by 1 whenever 'next' is pressed
-    })
+    });
 })
 
 function increaseDate(n = 1)
@@ -97,6 +96,11 @@ function increaseDate(n = 1)
 
 function updateDisplay(rent = 0, food = 0)
 {
+    let date = new Date(game.date);
+    let day = date.getDate() < 9 ? `0${date.getDate()}` : `${date.getDate()}`;
+    let month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+    
+    document.getElementById("date").innerHTML = `${day}/${month}`;
     document.getElementById("rentPrice").innerHTML = `$${determineRent()}`;
     document.getElementById("foodPrice").innerHTML = `$${determineFood()}`;
     document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`;
@@ -225,6 +229,16 @@ function vibeCheck()
     } 
 }
 
+function levelUpgrade()
+{
+    if(game.player.balance >= 500)
+    {
+        game.player.balance -= 500;
+        game.player.level++;
+        game.player.happiness += 0.1;
+        updateDisplay();
+    }
+}
 
 function getCookie(name) {
     for (let cookie of document.cookie.split(';')) {
@@ -244,6 +258,7 @@ function loadGame(username) {
         data: JSON.stringify({ username }),
         success: (data) => {
             game = data
+            updateDisplay();
         }
     })
 }
