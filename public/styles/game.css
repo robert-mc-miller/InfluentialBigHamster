@@ -162,29 +162,6 @@ p, h4{
     margin-bottom: 0;
 }
 
-
-/* leaderboard styling */
-
-#headings{
-    display: flex;
-    width: 90vw;
-    justify-content: space-around;
-}
-
-.user{
-    display: flex;
-    width: 90vw;
-    border-radius: 25px;
-    justify-content: space-around;
-    border-radius: 25px;
-    background-color: #5200FF;
-    border: 1px solid #8D57FF;
-    margin-top: 2vh;
-    height: 5vh;
-    align-items: center;
-}
-
-
 /* modal styling */
 
 .modal{
