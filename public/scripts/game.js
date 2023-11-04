@@ -8,7 +8,7 @@ $(window).on('load', () => {
         updateDisplay();
     }
     else {
-        window.location.href = '/login.html'
+        window.location.href = '/login'
     }
 
     saveInterval = setInterval(() => {

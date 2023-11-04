@@ -10,60 +10,6 @@ body{
     background-color: #121212;
 }
 
-/* "navbar" styling */
-
-#incDate{
-    width: 30px;
-    height: 30px;
-    border-radius: 300px;
-    cursor: pointer;
-    border: none;
-    background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
-    text-align: center;
-    font-family: Inter;
-    font-size: 20px;
-}
-
-
-#date{
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-nav{
-    display: flex;
-    width: 100vw;
-    justify-content: space-around;
-    align-items: center;
-}
-
-
-h1{
-    text-align: center;
-    font-family: Inter;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-nav span{
-    width: 7vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-nav img{
-    fill: #ffffff;
-    height: 4vh;
-}
-
 
 /* main styling */
 
@@ -145,36 +91,6 @@ p, h4{
     line-height: normal;
 }
 
-/* button styling */
-
-#buttons {
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-#buttons span{
-    margin-top: 1vh;
-    display: flex;
-    width: 50vw;
-    justify-content: space-around;
-}
-
-#buttons button{
-    background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
-    border-radius: 100%;
-    border: none;
-    width: 5.8vw;
-    height: 5.8vw;
-    cursor: pointer;
-}
-
-#buttons img{
-    width: 4.6vw;
-    height: 4.6vw;
-    flex-shrink: 0;
-}
 
 
 #funActivities{
@@ -195,54 +111,17 @@ p, h4{
     margin-bottom: 0;
 }
 
-/* modal styling */
-
-.modal{
-    display: none;
-    position: fixed; 
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.9);
-    align-items: center;
-    justify-content: center; 
-    flex-direction: column;
-}
-
-.modal button{
-    background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
-    border-radius: 100%;
-    border: none;
-    width: 10vw;
-    height: 10vw;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-#upgrades, #funActivities, #learnActivities{
-    flex-direction: row;
-    justify-content: space-around;
-}
 
 
-/* upcoming Styling */
 
-#expenditures p{
-    display: inline;
-}
 
 /* progress bar styling */
 
 progress[value] {
-    /* Reset the default appearance */
     -webkit-appearance: none;
-     appearance: none;
+    appearance: none;
     width: 250px;
     height: 20px;
-    linear-gradient(red,0, 0) 0 /calc(var(--w)*.3 - 100%) 1px,
   }
 
 progress[value]::-webkit-progress-bar {
@@ -250,4 +129,3 @@ progress[value]::-webkit-progress-bar {
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
   }
-
