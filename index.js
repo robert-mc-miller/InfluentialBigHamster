@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.post('/load', (req, res) => {
@@ -22,7 +22,7 @@ app.post('/load', (req, res) => {
 
 app.post('/save', (req, res) => {
     const game = req.body
-    const username = req.body.username
+    const username = game.username
 
     if (Object.keys(game).length === 0) {
         res.status(400)
