@@ -1,6 +1,6 @@
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();
-const game = 
+const game =
 {
     'username': "",
     'date': 28 * msInADay,
@@ -12,9 +12,9 @@ const game =
     }
 }
 
-$('document').ready(() => {
+$('document').ready(() => {                                                                             // Run once HTML is rendered
     $('#incDate').on("click", () => {
-        increaseDate(26);
+        increaseDate();                                                                                 // Increment date by 1 whenever 'next' is pressed
     })
 })
 
@@ -34,12 +34,15 @@ function increaseDate(n = 1)
     let nextRent = parseInt((upcomingElement.innerHTML).split("<br>")[0].split(" ")[3]);                // Get previous days before next rent payment
     let nextFood = parseInt((upcomingElement.innerHTML).split("<br>")[2].split(" ")[3]);                // Get previous days before next food payment
 
-    nextRent -= n;
-    nextFood -= n;
+    nextRent = Number.isNaN(nextRent) ? 0 : nextRent                                                    // Fix interpreted date if it is "Today"
+    nextFood = Number.isNaN(nextFood) ? 0 : nextFood                                                    // Fix interpreted date if it is "Today"
+
+    nextRent -= n;                                                                                      // Decrement days until rent
+    nextFood -= n;                                                                                      // Decrement days until food
 
     while(nextRent < 0)
     {
-        nextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());
+        nextRent += parseInt(new Date(1970, newDate.getMonth() + 1, 0).getDate());                      // Adjust new days left if going to a new month
     }
     while(nextFood < 0)
     {
@@ -50,8 +53,11 @@ function increaseDate(n = 1)
     let nextRentText = ""
     let nextFoodText = ""
 
-    nextRentText = nextRent == 1 ? `${nextRent} day` : `${nextRent} days`;
+    nextRentText = nextRent == 1 ? `${nextRent} day` : `${nextRent} days`;                              // Format display of days left
     nextFoodText = nextFood == 1 ? `${nextFood} day` : `${nextFood} days`;
+
+    nextRentText = nextRent == 0 ? "Today" : nextRentText;
+    nextFoodText = nextFood == 0 ? "Today" : nextFoodText;
 
     upcomingElement.innerHTML = `Rent: £100 - ${nextRentText}<br><br>Food: £50 - ${nextFoodText}`;
 }
