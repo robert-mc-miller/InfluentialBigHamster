@@ -1,12 +1,13 @@
-/* leaderboard styling */
 
-#headings{
+
+#headings {
     display: flex;
     width: 90vw;
     justify-content: space-around;
 }
 
-.user{
+
+.user {
     display: flex;
     width: 90vw;
     border-radius: 25px;
@@ -18,3 +19,4 @@
     height: 5vh;
     align-items: center;
 }
+

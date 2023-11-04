@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <link rel="stylesheet" href="../public/styles/game.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -26,10 +27,12 @@
 
     <div id="upgrades" class="modal">
         <button id="happinessUpgrade" onclick="closeModal('upgrades')">Upgrade House</button>
+
         <button id="cancel" onclick="closeModal('upgrades')">Cancel</button>
     </div>
 
     <div id="funActivities" class="modal">
+
         <button id="act1" onclick="closeModal('funActivities')">-$300<br>1 day<br>+6% happiness</button>
         <button id="act2" onclick="closeModal('funActivities')">-$510<br>3 days<br>+12% happiness</button>
         <button id="act3" onclick="closeModal('funActivities')">-$960<br>7 days<br>+24% happiness</button>
@@ -47,10 +50,12 @@
         <span>
             <button onclick="closeModal('learnActivities')">Cancel</button>
         </span>
+
     </div>
 
     <main>
         <div id="stats">
+
             <p id="happiness">Happiness:</p>
             <progress id="progress" class="progress" value="60" max="100"></progress>
             <p id="income">Income (per month):</p> <p>$1000</p>
@@ -68,6 +73,7 @@
             <div id="upcomingFood">
                 <br>
                 <p>Food:</p> <p>$50</p><p> - </p> <p>2 days</p>
+
             </div>
         </div>
     </main>
@@ -87,3 +93,4 @@
 
 </body>
 </html>
+
