@@ -80,6 +80,10 @@ app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
     res.redirect('/')
 })
 
+if (!fs.existsSync(path.resolve(__dirname, './games/'))) {
+    fs.mkdirSync(path.resolve(__dirname, './games/'))
+}
+
 app.listen(8080, () => {
     console.log('listening...')
 })
