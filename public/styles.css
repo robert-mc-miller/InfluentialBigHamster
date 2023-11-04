@@ -146,7 +146,6 @@ p, h4{
 }
 
 #leaderboard {
-    margin-right: 2.5vw;
     margin-left: 2.5vw;
 }
 
@@ -212,3 +211,20 @@ p, h4{
 #expenditures p{
     display: inline;
 }
+
+/* progress bar styling */
+
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+     appearance: none;
+  
+    width: 250px;
+    height: 20px;
+  }
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
