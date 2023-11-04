@@ -5,6 +5,7 @@ function openModal(id){
 
 function closeModal(id){
     document.getElementById(id).style.display = 'none';
+}
 
 const msInADay = 8.64e+7;
 const day1 = (new Date(0)).getDay();

@@ -206,3 +206,9 @@ p, h4{
     border: none;
     cursor: pointer;
 }
+
+/* upcoming Styling */
+
+#expenditures p{
+    display: inline;
+}

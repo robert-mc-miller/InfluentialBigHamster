@@ -21,7 +21,7 @@
 
     <div id="upgrades" class="modal">
         <button id="happinessUpgrade" onclick="closeModal('upgrades')">+5 Happiness<br>+1 level</button>
-        <button id="incomeUpgrade" onclick="closeModal('upgrades')">+5 Income<br>+1 level</button>
+        <button id="cancel" onclick="closeModal('upgrades')">Cancel</button>
     </div>
 
     <div id="funActivities" class="modal">
@@ -48,7 +48,12 @@
 
         <div id="expenditures">
             <h4>Upcoming Expenditures: </h4>
-            <p id="upcoming">Rent: £100 - 2 days<br><br>Food: 50 - 2 days</p>
+            <div id="upcomingRent">
+            <p>Rent:</p> <p>$100</p><p> - </p> <p>2 days</p>
+            </div>
+            <div id="upcomingFood">
+                <p>Food:</p> <p>$50</p><p> - </p> <p>2 days</p>
+            </div>
         </div>
     </main>
 
