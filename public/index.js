@@ -117,7 +117,7 @@ function updateBalance(rent, food)
 
 function determineRent()
 {
-    return (Math.ceil(1 + (1/15)*(Math.pow(game.player.level, 18/10))*6)*100);
+    return (Math.ceil(1 + (1/15)*(Math.pow(game.player.level, 18/10))*6)*400);
 }
 
 function determineFood()
