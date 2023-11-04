@@ -2,16 +2,37 @@
 let game = {}
 
 function loadGame(username) {
-    $.post('/load', { username }, (data) => {
-        game = data
+    $.ajax({
+        method: 'post',
+        url: '/load',
+        data: { username },
+        success: (data) => {
+            game = data
+        }
     })
 }
 
 function saveGame() {
     if (Object.keys(game).length > 0) {
-        $.post('/save', game)
+        $.ajax({
+            method: 'POST',
+            url: '/save',
+            data: game,
+            contentType: 'application/json'
+        })
     }
     else {
-        console.log('Cannot save game.')
+        console.log('No game to save')
     }
+}
+
+function createGame(username) {
+    $.ajax({
+        method: 'post',
+        url: '/create',
+        data: { username },
+        success: (data) => {
+            game = data
+        }
+    })
 }
