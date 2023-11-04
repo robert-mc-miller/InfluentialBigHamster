@@ -1,4 +1,3 @@
-
 $(window).on('load', () => {
 
     let username = getCookie('username')

@@ -1,0 +1,20 @@
+#leaderboard {
+    margin-right: 2.5vw;
+    margin-left: 2.5vw;
+}
+
+#headings {
+    display: flex;
+    width: 90vw;
+    justify-content: space-around;
+}
+
+.user {
+    display: flex;
+    width: 90vw;
+    border-radius: 25px;
+    justify-content: space-around;
+    background-color: #D9D9D9;
+    margin-top: 1vh;
+    height: 5vh;
+}

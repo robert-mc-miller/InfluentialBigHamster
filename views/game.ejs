@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Game</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/game.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 <body>
     <div id="top">
@@ -14,8 +14,6 @@
         <h1>The Title</h1>
         <button id="incDate">Next</button>
     </div>
-
-
 
     <div id="upgrades" class="modal">
         <button id="happinessUpgrade" onclick="closeModal('upgrades')">+5 Happiness<br>+1 level</button>
@@ -65,13 +63,12 @@
         </span>
     </div>
 
-    
     <div id="menu">
-        <button id="manage"><img src="./images/person fill0.svg"></button>
-        <a href="leaderboard.html"><button id="leaderboard"><img src="./images/Material Symbols Trophy.svg"></button></a>
-        <button id="settings"><img src="./images/settings.svg"></button>
+        <button id="manage"><img src="/assets/images/person fill0.svg"></button>
+        <a href="/leaderboard"><button id="leaderboard"><img src="/assets/images/Material Symbols Trophy.svg"></button></a>
+        <button id="settings"><img src="/assets/images/settings.svg"></button>
     </div>
 
-    <script src="index.js"></script>
+    <script src="/scripts/game.js"></script>
 </body>
 </html>
