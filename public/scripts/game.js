@@ -471,10 +471,9 @@ function createGame(username) {
 // -=======================-
 
 
-
 /*
  * -=======================-
- * Data management functions
+ * Random Event Messages
  * -=======================-
 */
 
