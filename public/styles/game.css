@@ -1,4 +1,5 @@
 /* general styling */
+
 *{
     color: #ffffff;
 }
@@ -58,7 +59,7 @@ p, h4{
 /* button styling */
 
 #buttons{
-    margin-top: 5vh;
+    margin-top: 2vh;
 }  
 
 .buttons2{
