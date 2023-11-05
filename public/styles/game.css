@@ -229,6 +229,17 @@ progress[value]::-webkit-progress-bar {
 }
 
 
+@media only screen and (max-height: 855px) {
+    #money{
+        font-size: 15vh;
+    }
+
+    main{
+        height: 30vh;
+    }
+}
+
+
 
 
 
