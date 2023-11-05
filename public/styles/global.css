@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Quicksand&display=swap');
 
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 * {
     font-family: 'Inter', sans-serif;
 }
