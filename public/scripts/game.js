@@ -189,7 +189,7 @@ function vibeCheck()
 
 function levelUpgrade()
 {
-    if(game.player.balance >= 500) // Only upgrade if player can afford it
+    if(game.player.balance >= (1500 + (100 * game.player.level))) // Only upgrade if player can afford it
     {
         game.player.balance -= (1500 + (100 * game.player.level)); // Deduct from balance
         game.player.level++; // Increase level
@@ -200,11 +200,14 @@ function levelUpgrade()
 
 function levelDowngrade()
 {
-    game.player.balance += 500;
-    game.player.level -= 1;
-    changeHappiness(-0.1);
+    if(game.player.level >= 1) // Can only downgrade if there is a level below to go to
+    {
+        game.player.balance += 500; // Gain some bu not all of money back
+        game.player.level -= 1;
+        changeHappiness(-0.1); // Lose some happiness points
 
-    updateDisplay();
+        updateDisplay(); // Display new values
+    }
 }
 
 function changeHappiness(amount) {
