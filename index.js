@@ -65,6 +65,11 @@ app.get('/', (req, res) => {
     res.render('game')
 })
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('username')
+    res.redirect('/login')
+})
+
 app.get('/leaderboard', async (req, res) => {
     let players = await Player.findAll({
         limit: 10,
