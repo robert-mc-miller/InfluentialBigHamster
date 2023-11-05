@@ -99,6 +99,43 @@ progress[value]::-webkit-progress-bar {
   }
 
 
+  /* errors */
+
+#errorDis{
+    display: flex;
+    justify-content: flex-start;
+    width: 26vw;
+    border-radius: 20px;
+    background-color: red;
+    height: 40vh;
+    flex-direction: column;
+}
+
+#errorDis p{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#errorDis img, .alarm img{
+    height: 3vh;
+    cursor: pointer;
+    margin-left: 0.2vw;
+    margin-top: 1vh;
+}
+
+.alarm{
+    display: none;
+    background-color: red;
+    width: 30vw;
+    height: 20vh;
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    border-radius: 35px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
 
 /* Phone view */
 
@@ -178,5 +215,20 @@ progress[value]::-webkit-progress-bar {
         flex-direction: column;
     }
 
+    .alarm{
+        margin-left: 4.5vw;
+        width: 90vw;
+        height: 40vh;
+    }
+
+    #errorDis{
+        width: 90vw;
+    }
+
 
 }
+
+
+
+
+
