@@ -57,7 +57,7 @@ async function createGame(username) {
             gameUsername: username
         },
         defaults: {
-            monthlyIncome: 660,
+            monthlyIncome: 800,
             balance: 500,
             happiness: 1,
             level: 0,
