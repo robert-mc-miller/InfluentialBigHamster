@@ -199,7 +199,8 @@ function updateDisplay()
     document.getElementById("foodPrice").innerHTML = `$${determineFood()}`; // Update displayed food price
     document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`; // Update displayed income
     document.getElementById("balance").innerHTML = `$${game.player.balance}`; // Update displayed balance
-    document.getElementById("happiness").innerHTML = `Happiness: ${game.player.happiness}`; // Update displayed happiness
+    document.getElementById("progress").setAttribute("value", game.player.happiness * 100); // Update displayed happiness
+    document.getElementById("level").innerHTML = game.player.level // Update displayed level
 }
 
 function updateBalance(rent, food)
