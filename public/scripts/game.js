@@ -223,12 +223,12 @@ function changeHappiness(amount) {
 }
 
 function eventHappened(loss) {
-    document.getElementById("event").style.display = "block";
+    $('#event').css("display", "block");
     scenarios(loss);
 }
 
 function closeEvent() {
-    document.getElementById("event").style.display = "none";
+    $('#event').css("display", "none");
 }
 
 function randomEvent(n) {
@@ -270,7 +270,7 @@ function updateDisplay() {
     $('#balance').html(`$${game.player.balance.toLocaleString()}`); // Update displayed balance
     $('#progress').attr('value', game.player.happiness * 100); // Update displayed happiness
     $('#level').html(game.player.level) // Update displayed level
-    $('#upgradeCost').html(`Upgrade Cost: $${1500 + 100*game.player.level}`);
+    $('#upgradeCost').html(`Upgrade Cost: $${1500 + 100*game.player.level}`); // Update value of upgrade cost
 }
 
 function updateBalance(rent, food) {
@@ -508,12 +508,12 @@ function createGame(username) {
 
 function scenarios(loss){
     var text = ["Your washing machine broke. You bought a new one for $",
-"Your car broke down. You paid the mechanic $",
-"Your pet was sick. You paid the vet $",
-"You impulse bought cool things. You paid $",
-"You need a new laptop. You paid $"]
+                "Your car broke down. You paid the mechanic $",
+                "Your pet was sick. You paid the vet $",
+                "You impulse bought cool things. You paid $",
+                "You need a new laptop. You paid $"]
 
-    document.getElementById('alarmText').innerHTML = text[Math.floor(Math.random()*10)%5] + loss;
+    $('#alarmText').html(text[Math.floor(Math.random()*10)%5] + loss);
 
 }
 
