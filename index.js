@@ -185,7 +185,7 @@ app.get('/', (req, res) => {
 app.get('/leaderboard', async (req, res) => {
     let players = await Player.findAll({
         limit: 10,
-        order: ['balance', 'DESC'],
+        order: [['balance', 'DESC']],
         include: [Game]
     })
 
