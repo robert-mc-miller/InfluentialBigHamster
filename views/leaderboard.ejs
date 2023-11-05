@@ -32,8 +32,8 @@
         <p class="part"><%= user.position %></p>
         <p class="part"><%= user.username %></p>
         <p class="part"><%= user.level %></p>
-        <p class="part"><%= user.balance %></p>
-        <p class="part"><%= user.happiness %></p>
+        <p class="part">$<%= user.balance.toLocaleString() %></p>
+        <p class="part"><%= parseInt(100 * user.happiness) %>%</p>
     </div>
     <% } %>
 </body>

@@ -74,7 +74,7 @@ app.get('/leaderboard', async (req, res) => {
 
     players = players.map((player, index) => {
         return {
-            position: index,
+            position: index + 1,
             username: player.game.username,
             level: player.level,
             balance: player.balance,
