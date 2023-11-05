@@ -120,7 +120,7 @@ function increaseDate(n = 1) {
     dateElement.html(`${day}/${month}`); // Change displayed date
 
     randomEvent(n);
-    changeHappiness(-0.005 * n);
+    changeHappiness(-0.0025 * n);
 
     for(let i = 1; i <= n; i++)
     {
@@ -171,7 +171,7 @@ function payFood() {
         game.player.balance -= determineFood();
     }
     else {
-        changeHappiness(-0.25); // Decrease happiness
+        changeHappiness(-0.10); // Decrease happiness
         unpaid("food"); // Display message
     }
 }
@@ -229,10 +229,10 @@ function closeEvent()
 
 function randomEvent(n)
 {
-    if (Math.floor(Math.random()*Math.ceil((20 - (10*Math.tanh(n - 4) + 10)))) + 1 == 1)
+    if (Math.floor(Math.random()*Math.ceil((40 - (20*Math.tanh(n - 4) + 20)))) + 1 == 1)
     {
         eventHappened();
-        loss = ((Math.floor(Math.random()*4)+1)*100);
+        loss = ((Math.floor(Math.random()*2)+1)*100);
         if(game.player.balance < loss)
         {
             game.player.balance = 0;
@@ -368,33 +368,33 @@ function workTask(menuChoice) { // Update values depending on type of work done
 function funActivity(menuChoice) { // Update values depending on type of fun activity done
     switch (menuChoice) {
         case 1: // 
-            if (game.player.balance >= 150) {
+            if (game.player.balance >= 75) {
                 changeHappiness(0.06);
-                game.player.balance -= 150;
+                game.player.balance -= 75;
                 increaseDate();
             }
             break;
 
         case 2: // 
-            if (game.player.balance >= 255) {
+            if (game.player.balance >= 125) {
                 changeHappiness(0.12);
-                game.player.balance -= 255;
+                game.player.balance -= 125;
                 increaseDate(3);
             }
             break;
 
         case 3: //
-            if (game.player.balance >= 480) {
+            if (game.player.balance >= 250) {
                 changeHappiness(0.24);
-                game.player.balance -= 480;
+                game.player.balance -= 250;
                 increaseDate(7);
             }
             break;
 
         case 4: // 
-            if (game.player.balance >= 900) {
+            if (game.player.balance >= 450) {
                 changeHappiness(0.48);
-                game.player.balance -= 900;
+                game.player.balance -= 450;
                 increaseDate(14);
             }
             break;
