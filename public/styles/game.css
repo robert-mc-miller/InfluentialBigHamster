@@ -139,6 +139,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 
+
 @media only screen and (max-height: 1000px){
     #money{
         font-size: 13vh;
