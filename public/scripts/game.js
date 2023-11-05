@@ -142,7 +142,7 @@ function increaseDate(n = 1) {
 
     for (let d = 0; d < n; d++)
     {
-        if((date.getDay() + d) % 7 == firstDayOfWeek)
+        if((date.getDay() + d) % 7 == firstDayOfWeek) // For each week passed, pay food
         {
             nFoodToPay++;
         }
@@ -212,7 +212,7 @@ function levelDowngrade()
     }
 }
 
-function changeHappiness(amount) {
+function changeHappiness(amount) { // Clamp value of happiness to 0 or 1 when adding or subtracting
     if ((game.player.happiness + amount) > 1) {
         game.player.happiness = 1;
     }
@@ -225,26 +225,20 @@ function changeHappiness(amount) {
 }
 
 function eventHappened(loss) {
-    $('#event').css("display", "block");
+    $('#event').css("display", "block"); // Display event popup with randomised message
     scenarios(loss);
 }
 
-function closeEvent() {
-    $('#event').css("display", "none");
+function closeEvent() { //
+    $('#event').css("display", "none"); // Remove event popup
 }
 
 function randomEvent(n) {
 
-    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) {
-        loss = ((Math.floor(Math.random()*2)+1)*100);
+    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) { // Probability of number == 1 depends on how many days pass
+        loss = ((0.3 * Math.sin(Math.random() * Math.PI/2 + 0.1)) * game.player.balance).toFixed(2); // Player can lose a percentage within the range of 10% and 40%
         eventHappened(loss);
-        if(game.player.balance < loss)
-        {
-            game.player.balance = 0;
-        }
-        else {
-            game.player.balance = game.player.balance - loss;
-        }
+        game.player.balance = game.player.balance - loss; // Reduce player balance
     }
 }
 //-=========================-
