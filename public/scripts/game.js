@@ -100,7 +100,7 @@ function closeModal(id) {
 
 /*
  * -========================-
- * User interaction functions
+ * Event functions
  * -========================-
 */
 
@@ -116,6 +116,9 @@ function increaseDate(n = 1)
     game.date = newDate.getTime(); // Save new date
 
     dateElement.innerHTML = `${day}/${month}`; // Change displayed date
+
+    randomEvent(n);
+    changeHappiness(-0.01 * n);
 
     /*
      * Calculate amount of times rent and food expense needs to be paid after n days
@@ -208,6 +211,33 @@ function changeHappiness(amount)
     else
     {
         game.player.happiness += amount;
+    }
+}
+
+function eventHappened()
+{
+    document.getElementById("event").style.display = "block";
+}
+
+function closeEvent()
+{
+    document.getElementById("event").style.display = "none";
+}
+
+function randomEvent(n)
+{
+    if (Math.floor(Math.random()*Math.ceil((20 - (10*Math.tanh(n - 4) + 10)))) + 1 == 1)
+    {
+        eventHappened();
+        loss = ((Math.floor(Math.random()*4)+1)*100);
+        if(game.player.balance < loss)
+        {
+            game.player.balance = 0;
+        }
+        else
+        {
+            game.player.balance = game.player.balance - loss;
+        }
     }
 }
 //-=========================-
