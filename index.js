@@ -1,23 +1,137 @@
-const fs = require('fs')
-const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const { Sequelize, DataTypes } = require('sequelize')
+require('dotenv').config()
 
 const app = express()
+const sequelize = new Sequelize(process.env.DATABASE, process.env.USERNAME, process.env.PASSWORD, {
+    host: process.env.HOST,
+    dialect: 'mysql',
+    logging: false
+})
+
+const Game = sequelize.define('games', {
+    username: {
+        type: DataTypes.STRING(16),
+        primaryKey: true,
+        allowNull: false,
+        unique: true
+    },
+    date: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: false,
+    }
+})
+
+const Player = sequelize.define('players', {
+    monthlyIncome: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
+    },
+    balance: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: false
+    },
+    happiness: {
+        type: DataTypes.FLOAT.UNSIGNED,
+        allowNull: false
+    },
+    level: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
+    }
+})
+
+Game.hasOne(Player)
+Player.belongsTo(Game)
+
+async function gameExists(username) {
+    const player = await Player.findOne({
+        where: {
+            gameUsername: username
+        }
+    })
+    return player ? true : false
+}
+
+async function createGame(username) {
+    const player = (await Player.findOrCreate({
+        where: {
+            gameUsername: username
+        },
+        defaults: {
+            monthlyIncome: 660,
+            balance: 500,
+            happiness: 1,
+            level: 0,
+            game: {
+                username,
+                date: 0
+            }
+        },
+        include: [Game]
+    }))[0]
+
+    return {
+        username,
+        date: player.game.date,
+        player: {
+            monthlyIncome: player.monthlyIncome,
+            balance: player.balance,
+            happiness: player.happiness,
+            level: player.level
+        }
+    }
+}
+
+async function fetchGame(username) {
+    const player = await Player.findOne({
+        where: {
+            gameUsername: username
+        },
+        include: [Game]
+    })
+
+    return {
+        username,
+        date: player.game.date,
+        player: {
+            monthlyIncome: player.monthlyIncome,
+            balance: player.balance,
+            happiness: player.happiness,
+            level: player.level
+        }
+    }
+}
+
+async function updateGame(data) {
+    await Game.update({
+        username: data.username,
+        date: data.date
+    }, {
+        where: { username: data.username }
+    })
+    await Player.update({
+        monthlyIncome: data.player.monthlyIncome,
+        balance: data.player.balance,
+        happiness: data.player.happiness,
+        level: data.player.level
+    }, {
+        where: { gameUsername: data.username }
+    })
+}
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static('public'))
 
-const gamesDir = path.resolve(__dirname, './games')
-
-app.post('/load', (req, res) => {
+app.post('/load', async (req, res) => {
     const username = req.body.username
 
-    if (fs.existsSync(`${gamesDir}/${username}.json`)) {
-        const game = JSON.parse(fs.readFileSync(`${gamesDir}/${username}.json`))
+    if (gameExists(username)) {
+        const game = await fetchGame(username)
         res.json(game)
     }
     else {
@@ -27,56 +141,33 @@ app.post('/load', (req, res) => {
 
 app.post('/save', (req, res) => {
     const game = req.body
-    const username = game.username
 
     if (Object.keys(game).length === 0) {
         res.status(400)
     }
     else {
-        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
+        updateGame(game)
         res.status(200)
     }
 })
 
-app.post('/create', (req, res) => {
+app.post('/create', async (req, res) => {
     const username = req.body.username
 
-    if (fs.existsSync(`${gamesDir}/${username}.json`)) {
+    if (await gameExists(username)) {
         res.status(400)
     }
     else {
-        const game = {
-            username,
-            date: 0,
-            player: {
-                monthlyIncome: 1600,
-                balance: 0,
-                happiness: 1,
-                level: 0
-            }
-        }
-
-        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
+        await createGame(username)
         res.status(200)
     }
 })
 
-app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
+app.post('/login', bodyParser.urlencoded({ extended: false }), async (req, res) => {
     const username = req.body.username
 
-    if (!fs.existsSync(`${gamesDir}/${username}.json`)) {
-        const game = {
-            username,
-            date: 0,
-            player: {
-                monthlyIncome: 600,
-                balance: 1000,
-                happiness: 100,
-                level: 0
-            }
-        }
-
-        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
+    if (!(await gameExists(username))) {
+        await createGame(username)
     }
 
     res.cookie('username', username)
@@ -91,28 +182,28 @@ app.get('/', (req, res) => {
     res.render('game')
 })
 
-app.get('/leaderboard', (req, res) => {
-    const users = []
-    const files = fs.readdirSync(gamesDir)
+app.get('/leaderboard', async (req, res) => {
+    let players = await Player.findAll({
+        limit: 10,
+        order: ['balance', 'DESC'],
+        include: [Game]
+    })
 
-    for (let i = 0; i < files.length; i++) {
-        const game = JSON.parse(fs.readFileSync(`${gamesDir}/${files[i]}`))
-        users.push({
-            position: i + 1,
-            username: game.username,
-            level: game.player.level,
-            balance: game.player.balance,
-            happiness: game.player.happiness
-        })
-    }
+    players = players.map((player, index) => {
+        return {
+            position: index,
+            username: player.game.username,
+            level: player.level,
+            balance: player.balance,
+            happiness: player.happiness
+        }
+    })
 
-    res.render('leaderboard', { users })
+    res.render('leaderboard', { users: players })
 })
 
-if (!fs.existsSync(gamesDir)) {
-    fs.mkdirSync(gamesDir)
-}
-
-app.listen(8080, () => {
-    console.log('listening...')
-})
+sequelize.sync({ force: false })
+    .then(app.listen(8080))
+    .then(async () => {
+        console.log('listening...')
+    })
