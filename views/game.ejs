@@ -92,7 +92,26 @@
         </span>
     </div>
 
-    
+    <div class="modal" id="error">
+        <div id="errorDis">
+            <span>
+                <img onclick="closeModal('error')" src="/assets/images/Material Symbols 3.svg">
+                <h2>Error:</h2>
+            </span>
+            <p>You have insufficient funds for this purchase</p>
+        </div>
+    </div>
+
+    <div class="alarm"  id="rent">
+        <img onclick="closeUnpaid('rent')" src="/assets/images/Material Symbols 3.svg">
+        <p>You were unable to pay rent. Your level has been decreased.</p>
+    </div>
+
+    <div class="alarm" id="food">
+        <img onclick="closeUnpaid('food')" src="/assets/images/Material Symbols 3.svg">
+        <p>You were unable to pay your food bills. Your happiness has decreased.</p>
+    </div>
+
     <script type="text/javascript" src="/scripts/game.js"></script>
 </body>
 </html>
