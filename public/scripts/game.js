@@ -22,7 +22,7 @@ $(window).on('load', () => {
     }
 
     saveInterval = setInterval(() => {
-        saveGame() 
+        saveGame()
     }, 1000 * 60) // Run saveGame() every 60s
 
 })
@@ -41,6 +41,38 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessUpgrade').on("click", () => {
         levelUpgrade(); // Level up the house
     });
+    $('#act1').on("click", () => {
+        funActivity(1);
+        closeModal("funActivities");
+    });
+    $('#act2').on("click", () => {
+        funActivity(2);
+        closeModal("funActivities");
+    });
+    $('#act3').on("click", () => {
+        funActivity(3);
+        closeModal("funActivities");
+    });
+    $('#act4').on("click", () => {
+        funActivity(4);
+        closeModal("funActivities");
+    });
+    $('#learn1').on("click", () => {
+        workTask(1);
+        closeModal("learnActivities");
+    });
+    $('#learn2').on("click", () => {
+        workTask(2);
+        closeModal("learnActivities");
+    });
+    $('#learn3').on("click", () => {
+        workTask(3);
+        closeModal("learnActivities");
+    });
+    $('#learn4').on("click", () => {
+        workTask(4);
+        closeModal("learnActivities");
+    });
 })
 // -==============================-
 
@@ -55,11 +87,11 @@ $('document').ready(() => { // Run when HTML is loaded
 
 // -===============================-
 function openModal(id) {
-    document.getElementById(id).style.display = 'flex'; // Display modal on screen
+    $(`#${id}`).css('display', 'flex'); // Display modal on screen
 }
 
 function closeModal(id) {
-    document.getElementById(id).style.display = 'none'; // Hide modal from screen
+    $(`#${id}`).css('display', 'none'); // Hide modal from screen
 }
 // -===============================-
 
@@ -68,22 +100,24 @@ function closeModal(id) {
 
 /*
  * -========================-
- * User interaction functions
+ * Event functions
  * -========================-
 */
 
 //-=========================-
-function increaseDate(n = 1)
-{
-    let dateElement = document.getElementById("date"); // Get tag containing displayed date
+function increaseDate(n = 1) {
+    let dateElement = $('#date'); // Get tag containing displayed date
     let date = new Date(game.date); // Store saved game date as Date() for use
     let newDate = new Date(date.getTime() + n * msInADay); // Add n days converted to ms to current saved date converted to ms
-    let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
+    let day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
     let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`; // Format month number
 
     game.date = newDate.getTime(); // Save new date
 
-    dateElement.innerHTML = `${day}/${month}`; // Change displayed date
+    dateElement.html(`${day}/${month}`); // Change displayed date
+
+    randomEvent(n);
+    changeHappiness(-0.01 * n);
 
     /*
      * Calculate amount of times rent and food expense needs to be paid after n days
@@ -93,14 +127,14 @@ function increaseDate(n = 1)
     let nRentToPay = 0
     let nFoodToPay = 0
 
-    for(let m = date.getMonth(); m < newDate.getMonth(); m++) // For each month passed, pay rent
+    for (let m = date.getMonth(); m < newDate.getMonth(); m++) // For each month passed, pay rent
     {
         nRentToPay++;
     }
 
     nFoodToPay = Math.floor(n / 7); // Pay food price for every 7 days
 
-    if(getUpcomingFood() == "Today") // Fix this later to work for all values of n
+    if (getUpcomingFood() == "Today") // Fix this later to work for all values of n
     {
         nFoodToPay = 1;
     }
@@ -108,15 +142,13 @@ function increaseDate(n = 1)
     updateDisplay(); // Update display of values with new values
 }
 
-function payRent()
-{
-    if(game.player.balance >= determineRent()) // Only pay rent if the player has enough money
+function payRent() {
+    if (game.player.balance >= determineRent()) // Only pay rent if the player has enough money
     {
         game.player.balance -= determineRent();
     }
-    else
-    {
-        if(game.player.level > 0) // Only downgrade if level is above 0
+    else {
+        if (game.player.level > 0) // Only downgrade if level is above 0
         {
             game.player.level = game.player.level - 1; // if player cannot pay, downgrade
             unpaid("rent"); // Display message
@@ -124,37 +156,30 @@ function payRent()
     }
 }
 
-function payFood()
-{
-    if(game.player.balance >= determineFood()) // Only pay for food if the player has enough money
+function payFood() {
+    if (game.player.balance >= determineFood()) // Only pay for food if the player has enough money
     {
         game.player.balance -= determineFood();
     }
-    else
-    {
+    else {
         changeHappiness(-0.25); // Decrease happiness
         unpaid("food"); // Display message
     }
 }
 
-function vibeCheck()
-{
-    if (game.player.happiness < 0.25)
-    {
-        if(game.player.monthlyIncome >= 1250)
-        {
+function vibeCheck() {
+    if (game.player.happiness < 0.25) {
+        if (game.player.monthlyIncome >= 1250) {
             game.player.monthlyIncome -= 500; // If player has higher income but low happinesss, won't lose as much
         }
-        else
-        {
+        else {
             game.player.monthlyIncome = 750;
         }
-    } 
+    }
 }
 
-function levelUpgrade()
-{
-    if(game.player.balance >= 500) // Only upgrade if player can afford it
+function levelUpgrade() {
+    if (game.player.balance >= 500) // Only upgrade if player can afford it
     {
         game.player.balance -= 500; // Deduct from balance
         game.player.level++; // Increase level
@@ -163,19 +188,42 @@ function levelUpgrade()
     }
 }
 
-function changeHappiness(amount)
-{
-    if((game.player.happiness + amount) > 1)
-    {
+function changeHappiness(amount) {
+    if ((game.player.happiness + amount) > 1) {
         game.player.happiness = 1;
     }
-    else if((game.player.happiness + amount) < 0)
-    {
+    else if ((game.player.happiness + amount) < 0) {
         game.player.happiness = 0;
     }
-    else
-    {
+    else {
         game.player.happiness += amount;
+    }
+}
+
+function eventHappened()
+{
+    document.getElementById("event").style.display = "block";
+}
+
+function closeEvent()
+{
+    document.getElementById("event").style.display = "none";
+}
+
+function randomEvent(n)
+{
+    if (Math.floor(Math.random()*Math.ceil((20 - (10*Math.tanh(n - 4) + 10)))) + 1 == 1)
+    {
+        eventHappened();
+        loss = ((Math.floor(Math.random()*4)+1)*100);
+        if(game.player.balance < loss)
+        {
+            game.player.balance = 0;
+        }
+        else
+        {
+            game.player.balance = game.player.balance - loss;
+        }
     }
 }
 //-=========================-
@@ -190,40 +238,35 @@ function changeHappiness(amount)
 */
 
 //-=========================-
-function updateDisplay()
-{
+function updateDisplay() {
     let date = new Date(game.date); // Get current saved in-game date
-    let day = date.getDate() < 9 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
+    let day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
     let month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`; // Format month number
 
     updateUpcoming(); // Update upcoming expenses numbers
-    document.getElementById("date").innerHTML = `${day}/${month}`; // Update displayed date
-    document.getElementById("rentPrice").innerHTML = `$${determineRent()}`; // Update displayed rent price
-    document.getElementById("foodPrice").innerHTML = `$${determineFood()}`; // Update displayed food price
-    document.getElementById("income").innerHTML = `Income (per month): ${game.player.monthlyIncome}`; // Update displayed income
-    document.getElementById("balance").innerHTML = `$${game.player.balance}`; // Update displayed balance
-    document.getElementById("progress").setAttribute("value", game.player.happiness * 100); // Update displayed happiness
-    document.getElementById("level").innerHTML = game.player.level // Update displayed level
+    $('#date').html(`${day}/${month}`); // Update displayed date
+    $('#rentPrice').html(`$${determineRent()}`); // Update displayed rent price
+    $('#foodPrice').html(`$${determineFood()}`); // Update displayed food price
+    $('#income').html(`Income (per month): ${game.player.monthlyIncome}`); // Update displayed income
+    $('#balance').html(`$${game.player.balance}`); // Update displayed balance
+    $('#progress').attr('value', game.player.happiness * 100); // Update displayed happiness
+    $('#level').html(game.player.level) // Update displayed level
 }
 
-function updateBalance(rent, food)
-{
-    for(let r = 1; r <= rent; r++)
-    {
+function updateBalance(rent, food) {
+    for (let r = 1; r <= rent; r++) {
         game.player.balance += game.player.monthlyIncome; // Rent is paid monthly so income is gained as well
         payRent(); // Pay rent a certain number of times
     }
 
-    for(let f = 1; f <= food; f++)
-    {
+    for (let f = 1; f <= food; f++) {
         payFood(); // Pay for food a certain number of times
     }
 }
 
-function updateUpcoming()
-{
-    let nextRentElement = document.getElementById("rentTimeUntil"); // Get upcoming rent payment number
-    let nextFoodElement = document.getElementById("foodTimeUntil"); // Ger upcoming food payment number
+function updateUpcoming() {
+    let nextRentElement = $('#rentTimeUntil'); // Get upcoming rent payment number
+    let nextFoodElement = $('#foodTimeUntil'); // Get upcoming food payment number
     let currentDate = new Date(game.date) // Store current saved date as Date() for use
     let daysUntilNextRent = parseInt(new Date(1970, currentDate.getMonth() + 1, 0).getDate()) - currentDate.getDate(); // - date from total days in month
     let daysUntilNextFood = firstDayOfWeek >= currentDate.getDay() ? firstDayOfWeek - currentDate.getDay() : 7 - (currentDate.getDay() - firstDayOfWeek)
@@ -245,100 +288,97 @@ function updateUpcoming()
     nextRentText = daysUntilNextRent == 0 ? "Today" : nextRentText; // Display 0 days as "Today" for better UX
     nextFoodText = daysUntilNextFood == 0 ? "Today" : nextFoodText;
 
-    nextRentElement.innerHTML = nextRentText; // Update displayed upcoming expenses
-    nextFoodElement.innerHTML = nextFoodText;
+    nextRentElement.html(nextRentText); // Update displayed upcoming expenses
+    nextFoodElement.html(nextFoodText);
 }
 
-function unpaid(type)
-{
-    document.getElementById(type).style.display = "block"; // Display block with the id corresponding to 'type'
+function unpaid(type) {
+    $(`#${type}`).css('display', 'block'); // Display block with the id corresponding to 'type'
 }
 
-function closeUnpaid(type)
-{
-    document.getElementById(type).style.display = "none";
+function closeUnpaid(type) {
+    $(`#${type}`).css('display', 'none');
 }
 
-function error()
-{
+function error() {
     openModal("error"); // Display an error block when a user tries to do something that can't be done
 }
 
-function workTask(menuChoice){ // Update values depending on type of work done
-    switch(menuChoice)
-    {
+function workTask(menuChoice) { // Update values depending on type of work done
+    switch (menuChoice) {
         case 1:                                                                                             // 
-            if(game.player.balance >= 100)
-            {
+            if (game.player.balance >= 100) {
                 game.player.monthlyIncome += 50;
                 game.player.balance -= 100;
                 changeHappiness(-0.03);
-                increaseDate();        
+                increaseDate();
             }
+            break;
 
         case 2:                                                                                         // 
-            if(game.player.balance >= 300)
-            {
+            if (game.player.balance >= 300) {
                 game.player.monthlyIncome += 150;
                 game.player.balance -= 300;
                 changeHappiness(-0.06);
                 increaseDate(3);
             }
-        
+            break;
+
         case 3:
-            if(game.player.balance >= 500)                                                              //
+            if (game.player.balance >= 500)                                                              //
             {
                 game.player.monthlyIncome += 300;
                 game.player.balance -= 500;
                 changeHappiness(-0.12);
                 increaseDate(7);
             }
-        
+            break;
+
         case 4:
-            if(game.player.balance >= 1050)                                                             //
+            if (game.player.balance >= 1050)                                                             //
             {
                 game.player.monthlyIncome += 600;
                 game.player.balance -= 1050;
                 changeHappiness(-0.24);
                 increaseDate(14);
             }
+            break;
     }
 }
 
-function funActivity(menuChoice){ // Update values depending on type of fun activity done
-    switch(menuChoice)
-    {
-    case 1: // 
-            if(game.player.balance >= 300)
-            {
+function funActivity(menuChoice) { // Update values depending on type of fun activity done
+    switch (menuChoice) {
+        case 1: // 
+            if (game.player.balance >= 300) {
                 changeHappiness(0.06);
                 game.player.balance -= 300;
-                increaseDate();        
+                increaseDate();
             }
+            break;
 
         case 2: // 
-            if(game.player.balance >= 510)
-            {
+            if (game.player.balance >= 510) {
                 changeHappiness(0.12);
                 game.player.balance -= 510;
                 increaseDate(3);
             }
-        
+            break;
+
         case 3: //
-            if(game.player.balance >= 960)
-            {
+            if (game.player.balance >= 960) {
                 changeHappiness(0.24);
                 game.player.balance -= 960;
                 increaseDate(7);
             }
-        
+            break;
+
         case 4: // 
-            if(game.player.balance >= 1800)
-            {
+            if (game.player.balance >= 1800) {
                 changeHappiness(0.48);
                 game.player.balance -= 1800;
                 increaseDate(14);
             }
+            break;
     }
 }
 //-=========================-
@@ -355,22 +395,22 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
 //-================================-
 function getUpcomingRent() // Get upcoming rent from page
 {
-    return document.getElementById("rentTimeUntil").innerHTML.split(" ")[0];
+    return $('#rentTimeUntil').html().split(' ')[0];
 }
 
 function getUpcomingFood() // Get upcoming food expenses from page
 {
-    return document.getElementById("foodTimeUntil").innerHTML.split(" ")[0];
+    return $('#foodTimeUntil').html().split(' ')[0];
 }
 
 function determineRent() // Function for calculating rent depending on level
 {
-    return (Math.ceil(1 + (1/15)*(Math.pow(game.player.level, 18/10))*6)*400);
+    return (Math.ceil(1 + (1 / 15) * (Math.pow(game.player.level, 18 / 10)) * 6) * 400);
 }
 
 function determineFood() // Function for calculating food depending on level
 {
-    return (40+(2*(game.player.level)));
+    return (40 + (2 * (game.player.level)));
 }
 //-================================-
 
