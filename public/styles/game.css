@@ -138,6 +138,17 @@ progress[value]::-webkit-progress-bar {
     padding-right: 1vw;
 }
 
+
+@media only screen and (max-height: 1000px) and () {
+    #money{
+        font-size: 13vh;
+    }
+
+    main{
+        height: 30vh;
+    }
+}
+
 /* Phone view */
 
 @media only screen and (max-width: 600px) {
@@ -230,15 +241,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 
-@media only screen and (max-height: 1000px) {
-    #money{
-        font-size: 13vh;
-    }
 
-    main{
-        height: 30vh;
-    }
-}
 
 
 
