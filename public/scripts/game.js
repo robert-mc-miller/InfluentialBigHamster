@@ -203,6 +203,8 @@ function levelDowngrade()
     game.player.balance += 500;
     game.player.level -= 1;
     changeHappiness(-0.1);
+
+    updateDisplay();
 }
 
 function changeHappiness(amount) {
