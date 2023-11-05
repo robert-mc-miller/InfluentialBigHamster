@@ -32,6 +32,27 @@ button{
     color: #ffffff;
 }
 
+h2{
+    background: linear-gradient(180deg, rgba(82, 0, 255, 0.50) 0%, rgba(141, 87, 255, 0.50) 100%);
+    opacity: 0.6;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-family: Inter;
+    font-size: 800px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    width: 877px;
+    height: 100vh;
+    transform: rotate(-45deg);
+    margin-top: 0;
+}
+
 @media only screen and (max-width: 600px) {
 	form{
         display: flex;
