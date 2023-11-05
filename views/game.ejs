@@ -59,6 +59,7 @@
             <p id="happiness">Happiness:</p>
             <progress id="progress" class="progress" value="60" max="100"></progress>
             <p id="income">Income (per month): $</p>
+            <p id="upgradeCost">Upgrade Cost: $</p>
         </div>
 
         <div id="character">
@@ -86,10 +87,14 @@
         <button class="buttons2" id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
         <span class="buttons1">
             <button id="fun" onclick="openModal('funActivities')"><img src="/assets/images/Material Symbols (2)..svg"></button>
-            <h1 id="level">0</h1>
+            <span>
+                <p>Lvl.</p>
+                <h1 id="level">0</h1>
+            </span>
             <button id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
         </span>
     </div>
+
 
     <div class="modal" id="error">
         <div id="errorDis">

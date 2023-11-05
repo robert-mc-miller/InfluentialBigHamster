@@ -93,7 +93,7 @@ h4 {
 
 
 /* button styling */
-/* button styling */
+
 
 #buttons {
     width: 100vw;
@@ -106,7 +106,7 @@ h4 {
     margin-top: 1vh;
     display: flex;
     width: 50vw;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 #buttons button {
