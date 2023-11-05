@@ -41,6 +41,9 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessUpgrade').on("click", () => {
         levelUpgrade(); // Level up the house
     });
+    $('#happinessDowngrade').on("click", () => {
+        levelDowngrade(); // Level down the house
+    })
     $('#act1').on("click", () => {
         funActivity(1);
         closeModal("funActivities");
@@ -117,7 +120,12 @@ function increaseDate(n = 1) {
     dateElement.html(`${day}/${month}`); // Change displayed date
 
     randomEvent(n);
-    changeHappiness(-0.01 * n);
+    changeHappiness(-0.005 * n);
+
+    for(let i = 1; i <= n; i++)
+    {
+        vibeCheck();
+    }
 
     /*
      * Calculate amount of times rent and food expense needs to be paid after n days
@@ -152,6 +160,7 @@ function payRent() {
         {
             game.player.level = game.player.level - 1; // if player cannot pay, downgrade
             unpaid("rent"); // Display message
+            game.player.balance = 0;
         }
     }
 }
@@ -167,13 +176,13 @@ function payFood() {
     }
 }
 
-function vibeCheck() {
-    if (game.player.happiness < 0.25) {
-        if (game.player.monthlyIncome >= 1250) {
-            game.player.monthlyIncome -= 500; // If player has higher income but low happinesss, won't lose as much
-        }
-        else {
-            game.player.monthlyIncome = 750;
+function vibeCheck() 
+{
+    if (game.player.happiness < 0.25) 
+    {
+        if (game.player.monthlyIncome >= 1250)
+        {
+            game.player.monthlyIncome -= 50; // If player has higher income but low happinesss, won't lose as much
         }
     }
 }
@@ -187,6 +196,13 @@ function levelUpgrade()
         changeHappiness(0.1); // Increase happiness
         updateDisplay(); // Update display to show new level
     }
+}
+
+function levelDowngrade()
+{
+    game.player.balance += 500;
+    game.player.level -= 1;
+    changeHappiness(-0.1);
 }
 
 function changeHappiness(amount) {
@@ -352,33 +368,33 @@ function workTask(menuChoice) { // Update values depending on type of work done
 function funActivity(menuChoice) { // Update values depending on type of fun activity done
     switch (menuChoice) {
         case 1: // 
-            if (game.player.balance >= 300) {
+            if (game.player.balance >= 150) {
                 changeHappiness(0.06);
-                game.player.balance -= 300;
+                game.player.balance -= 150;
                 increaseDate();
             }
             break;
 
         case 2: // 
-            if (game.player.balance >= 510) {
+            if (game.player.balance >= 255) {
                 changeHappiness(0.12);
-                game.player.balance -= 510;
+                game.player.balance -= 255;
                 increaseDate(3);
             }
             break;
 
         case 3: //
-            if (game.player.balance >= 960) {
+            if (game.player.balance >= 480) {
                 changeHappiness(0.24);
-                game.player.balance -= 960;
+                game.player.balance -= 480;
                 increaseDate(7);
             }
             break;
 
         case 4: // 
-            if (game.player.balance >= 1800) {
+            if (game.player.balance >= 900) {
                 changeHappiness(0.48);
-                game.player.balance -= 1800;
+                game.player.balance -= 900;
                 increaseDate(14);
             }
             break;
