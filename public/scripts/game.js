@@ -129,14 +129,7 @@ function payFood()
     }
     else
     {
-        if(game.player.happiness >= 0.25) // Decrease happiness only if it won't result in a -ve number
-        {
-            game.player.happiness = game.player.happiness - 0.25;
-        }
-        else
-        {
-            game.player.happiness = 0; // Set happiness to 0
-        }
+        changeHappiness(-0.25); // Decrease happiness
         unpaid("food"); // Display message
     }
 }
@@ -160,10 +153,26 @@ function levelUpgrade()
 {
     if(game.player.balance >= 500) // Only upgrade if player can afford it
     {
-        game.player.balance -= 500;
-        game.player.level++;
-        game.player.happiness += 0.1;
+        game.player.balance -= 500; // Deduct from balance
+        game.player.level++; // Increase level
+        changeHappiness(0.1); // Increase happiness
         updateDisplay(); // Update display to show new level
+    }
+}
+
+function changeHappiness(amount)
+{
+    if((game.player.happiness + amount) > 1)
+    {
+        game.player.happiness = 1;
+    }
+    else if((game.player.happiness + amount) < 0)
+    {
+        game.player.happiness = 0;
+    }
+    else
+    {
+        game.player.happiness += amount;
     }
 }
 //-=========================-
@@ -197,8 +206,8 @@ function updateBalance(rent, food)
 {
     for(let r = 1; r <= rent; r++)
     {
-        payRent(); // Pay rent a certain number of times
         game.player.balance += game.player.monthlyIncome; // Rent is paid monthly so income is gained as well
+        payRent(); // Pay rent a certain number of times
     }
 
     for(let f = 1; f <= food; f++)
@@ -241,9 +250,14 @@ function unpaid(type)
     document.getElementById(type).style.display = "block"; // Display block with the id corresponding to 'type'
 }
 
+function closeUnpaid(type)
+{
+    document.getElementById(type).style.display = "none";
+}
+
 function error()
 {
-    document.getElementById("error").style.display = "block"; // Display an error block when a user tries to do something that can't be done
+    openModal("error"); // Display an error block when a user tries to do something that can't be done
 }
 
 function workTask(menuChoice){ // Update values depending on type of work done
@@ -254,7 +268,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
             {
                 game.player.monthlyIncome += 50;
                 game.player.balance -= 100;
-                game.player.happiness -= 0.03;
+                changeHappiness(-0.03);
                 increaseDate();        
             }
 
@@ -263,7 +277,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
             {
                 game.player.monthlyIncome += 150;
                 game.player.balance -= 300;
-                game.player.happiness -= 0.06;
+                changeHappiness(-0.06);
                 increaseDate(3);
             }
         
@@ -272,7 +286,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
             {
                 game.player.monthlyIncome += 300;
                 game.player.balance -= 500;
-                game.player.happiness -= 0.12;
+                changeHappiness(-0.12);
                 increaseDate(7);
             }
         
@@ -281,7 +295,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
             {
                 game.player.monthlyIncome += 600;
                 game.player.balance -= 1050;
-                game.player.happiness -= 0.24;
+                changeHappiness(-0.24);
                 increaseDate(14);
             }
     }
@@ -293,7 +307,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
     case 1: // 
             if(game.player.balance >= 300)
             {
-                game.player.happiness += 0.06;
+                changeHappiness(0.06);
                 game.player.balance -= 300;
                 increaseDate();        
             }
@@ -301,7 +315,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
         case 2: // 
             if(game.player.balance >= 510)
             {
-                game.player.happiness += 0.12;
+                changeHappiness(0.12);
                 game.player.balance -= 510;
                 increaseDate(3);
             }
@@ -309,7 +323,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
         case 3: //
             if(game.player.balance >= 960)
             {
-                game.player.happiness += 0.24;
+                changeHappiness(0.24);
                 game.player.balance -= 960;
                 increaseDate(7);
             }
@@ -317,7 +331,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
         case 4: // 
             if(game.player.balance >= 1800)
             {
-                game.player.happiness += 0.48;
+                changeHappiness(0.48);
                 game.player.balance -= 1800;
                 increaseDate(14);
             }
