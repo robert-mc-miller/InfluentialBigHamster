@@ -71,3 +71,18 @@ h2 {
         width: 40vw;
     }
 }
+
+.linkedin-icon,
+.github-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #8D57FF;
+}
+
+a:visited {
+    color: #8D57FF;
+}
