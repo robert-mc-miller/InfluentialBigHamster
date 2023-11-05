@@ -236,7 +236,7 @@ function closeEvent() { //
 function randomEvent(n) {
 
     if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) { // Probability of number == 1 depends on how many days pass
-        loss = ((0.3 * Math.sin(Math.random() * Math.PI/2 + 0.1)) * game.player.balance).toFixed(2); // Player can lose a percentage within the range of 10% and 40%
+        loss = Math.round((0.3 * Math.sin(Math.random() * Math.PI/2 + 0.1)) * game.player.balance); // Player can lose a percentage within the range of 10% and 40%
         eventHappened(loss);
         game.player.balance = game.player.balance - loss; // Reduce player balance
     }
