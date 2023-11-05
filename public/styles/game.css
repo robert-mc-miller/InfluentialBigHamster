@@ -1,10 +1,10 @@
 /* general styling */
 
-*{
+* {
     color: #ffffff;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +14,7 @@ body{
 
 /* main styling */
 
-main{
+main {
     margin-top: 2vh;
     display: flex;
     width: 90vw;
@@ -25,7 +25,7 @@ main{
     align-items: center;
 }
 
-#money{
+#money {
     margin: 0;
     text-align: center;
     font-family: Inter;
@@ -33,13 +33,13 @@ main{
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-        background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
+    background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-h2{
+h2 {
     text-align: center;
     font-family: Inter;
     font-size: 30px;
@@ -48,27 +48,28 @@ h2{
     line-height: normal;
 }
 
-p, h4{
+p,
+h4 {
     font-family: Inter;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    }
+}
 
 /* button styling */
 
-#buttons{
+#buttons {
     margin-top: 2vh;
-}  
+}
 
-.buttons2{
+.buttons2 {
     display: none;
 }
 
 /* level styling */
 
-#level{
+#level {
     margin-top: 0;
     color: #FFF;
     text-align: center;
@@ -91,18 +92,18 @@ progress[value] {
     appearance: none;
     width: 250px;
     height: 20px;
-  }
+}
 
 progress[value]::-webkit-progress-bar {
     background-color: #eee;
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-  }
+}
 
 
-  /* errors */
+/* errors */
 
-#errorDis{
+#errorDis {
     display: flex;
     justify-content: flex-start;
     width: 26vw;
@@ -112,24 +113,25 @@ progress[value]::-webkit-progress-bar {
     flex-direction: column;
 }
 
-#errorDis p{
+#errorDis p {
     margin-left: auto;
     margin-right: auto;
 }
 
-#errorDis img, .alarm img{
+#errorDis img,
+.alarm img {
     height: 3vh;
     cursor: pointer;
     margin-left: 0.2vw;
     margin-top: 1vh;
 }
 
-.alarm{
+.alarm {
     display: none;
     background-color: red;
     width: 30vw;
     height: 20vh;
-    position: fixed; 
+    position: fixed;
     z-index: 1;
     left: 0;
     bottom: 0;
@@ -138,14 +140,43 @@ progress[value]::-webkit-progress-bar {
     padding-right: 1vw;
 }
 
+#incDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 300px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+}
 
+#incDate .material-symbols-outlined {
+    margin: auto;
+    font-size: 2rem;
+}
 
-@media only screen and (max-height: 1000px){
-    #money{
+#date {
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 6rem;
+}
+
+@media only screen and (max-height: 1000px) {
+    #money {
         font-size: 13vh;
     }
 
-    main{
+    main {
         height: 30vh;
     }
 }
@@ -153,98 +184,91 @@ progress[value]::-webkit-progress-bar {
 /* Phone view */
 
 @media only screen and (max-width: 800px) {
-    h1{
+    h1 {
         display: none;
     }
 
-    #trophy{
+    #trophy {
         margin-left: 1vw;
     }
 
-    nav span{
+    nav span {
         width: 60vw;
         justify-content: center;
     }
 
-    #incDate{
+    #incDate {
         width: 70vw;
         margin-left: 5vw;
     }
 
-    main{
+    main {
         flex-direction: column;
         align-items: center;
     }
 
-    #date{
+    #date {
         margin-left: 20vw;
     }
 
-    main{
+    main {
         height: 70vh;
         margin-top: 0;
         padding-bottom: 2vh;
     }
 
-    #money{
+    #money {
         display: block;
         font-size: 16vh;
     }
 
-    #level{
+    #level {
         display: none;
     }
 
-    #buttons button{
+    #buttons button {
         width: 20vw;
         height: 20vw;
     }
 
-    .buttons2{
+    .buttons2 {
         display: block;
     }
 
-    #buttons span{
+    #buttons span {
         visibility: hidden;
     }
 
-    #buttons{
+    #buttons {
         flex-direction: row;
         justify-content: space-around;
         flex-wrap: wrap;
     }
 
-    #buttons img{
+    #buttons img {
         width: 10vw;
         height: 10vw;
     }
 
-    .modal button{
+    .modal button {
         width: 40vw;
         height: 40vw;
     }
 
-    #learnActivities, #funActivities{
+    #learnActivities,
+    #funActivities {
         flex-direction: column;
     }
 
-    .alarm{
+    .alarm {
         margin-left: 4.5vw;
         width: 90vw;
         height: 40vh;
     }
 
-    #errorDis{
+    #errorDis {
         width: 90vw;
     }
 
 
 }
-
-
-
-
-
-
-
-
