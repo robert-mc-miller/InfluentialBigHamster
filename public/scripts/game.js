@@ -41,6 +41,38 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessUpgrade').on("click", () => {
         levelUpgrade(); // Level up the house
     });
+    $('#act1').on("click", () => {
+        funActivity(1);
+        closeModal("funActivities");
+    });
+    $('#act2').on("click", () => {
+        funActivity(2);
+        closeModal("funActivities");
+    });
+    $('#act3').on("click", () => {
+        funActivity(3);
+        closeModal("funActivities");
+    });
+    $('#act4').on("click", () => {
+        funActivity(4);
+        closeModal("funActivities");
+    });
+    $('#learn1').on("click", () => {
+        workTask(1);
+        closeModal("learnActivities");
+    });
+    $('#learn2').on("click", () => {
+        workTask(2);
+        closeModal("learnActivities");
+    });
+    $('#learn3').on("click", () => {
+        workTask(3);
+        closeModal("learnActivities");
+    });
+    $('#learn4').on("click", () => {
+        workTask(4);
+        closeModal("learnActivities");
+    });
 })
 // -==============================-
 
@@ -273,8 +305,9 @@ function workTask(menuChoice){ // Update values depending on type of work done
                 game.player.monthlyIncome += 50;
                 game.player.balance -= 100;
                 changeHappiness(-0.03);
-                increaseDate();        
+                increaseDate();
             }
+            break;
 
         case 2:                                                                                         // 
             if(game.player.balance >= 300)
@@ -284,6 +317,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
                 changeHappiness(-0.06);
                 increaseDate(3);
             }
+            break;
         
         case 3:
             if(game.player.balance >= 500)                                                              //
@@ -293,6 +327,7 @@ function workTask(menuChoice){ // Update values depending on type of work done
                 changeHappiness(-0.12);
                 increaseDate(7);
             }
+            break;
         
         case 4:
             if(game.player.balance >= 1050)                                                             //
@@ -302,19 +337,21 @@ function workTask(menuChoice){ // Update values depending on type of work done
                 changeHappiness(-0.24);
                 increaseDate(14);
             }
+            break;
     }
 }
 
 function funActivity(menuChoice){ // Update values depending on type of fun activity done
     switch(menuChoice)
     {
-    case 1: // 
+        case 1: // 
             if(game.player.balance >= 300)
             {
                 changeHappiness(0.06);
                 game.player.balance -= 300;
-                increaseDate();        
+                increaseDate();
             }
+            break;
 
         case 2: // 
             if(game.player.balance >= 510)
@@ -323,6 +360,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
                 game.player.balance -= 510;
                 increaseDate(3);
             }
+            break;
         
         case 3: //
             if(game.player.balance >= 960)
@@ -331,6 +369,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
                 game.player.balance -= 960;
                 increaseDate(7);
             }
+            break;
         
         case 4: // 
             if(game.player.balance >= 1800)
@@ -339,6 +378,7 @@ function funActivity(menuChoice){ // Update values depending on type of fun acti
                 game.player.balance -= 1800;
                 increaseDate(14);
             }
+            break;
     }
 }
 //-=========================-
