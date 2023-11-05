@@ -20,20 +20,20 @@
     </nav>
 
     <div id="headings">
-        <h4>Pos</h4>
-        <h4>Username</h4>
-        <h4>Level</h4>
-        <h4>Money</h4>
-        <h4>Happiness</h4>
+        <h4 class="part">Pos</h4>
+        <h4 class="part">Username</h4>
+        <h4 class="part">Level</h4>
+        <h4 class="part">Money</h4>
+        <h4 class="part">Happiness</h4>
     </div>
 
     <% for (let user of users) { %>
     <div class="user">
-        <p><%= user.position %></p>
-        <p><%= user.username %></p>
-        <p><%= user.level %></p>
-        <p><%= user.balance %></p>
-        <p><%= user.happiness %></p>
+        <p class="part"><%= user.position %></p>
+        <p class="part"><%= user.username %></p>
+        <p class="part"><%= user.level %></p>
+        <p class="part"><%= user.balance %></p>
+        <p class="part"><%= user.happiness %></p>
     </div>
     <% } %>
 </body>
