@@ -100,7 +100,7 @@ function closeModal(id) {
 
 /*
  * -========================-
- * User interaction functions
+ * Event functions
  * -========================-
 */
 
@@ -109,12 +109,15 @@ function increaseDate(n = 1) {
     let dateElement = $('#date'); // Get tag containing displayed date
     let date = new Date(game.date); // Store saved game date as Date() for use
     let newDate = new Date(date.getTime() + n * msInADay); // Add n days converted to ms to current saved date converted to ms
-    let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
+    let day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
     let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`; // Format month number
 
     game.date = newDate.getTime(); // Save new date
 
     dateElement.html(`${day}/${month}`); // Change displayed date
+
+    randomEvent(n);
+    changeHappiness(-0.01 * n);
 
     /*
      * Calculate amount of times rent and food expense needs to be paid after n days
@@ -196,6 +199,33 @@ function changeHappiness(amount) {
         game.player.happiness += amount;
     }
 }
+
+function eventHappened()
+{
+    document.getElementById("event").style.display = "block";
+}
+
+function closeEvent()
+{
+    document.getElementById("event").style.display = "none";
+}
+
+function randomEvent(n)
+{
+    if (Math.floor(Math.random()*Math.ceil((20 - (10*Math.tanh(n - 4) + 10)))) + 1 == 1)
+    {
+        eventHappened();
+        loss = ((Math.floor(Math.random()*4)+1)*100);
+        if(game.player.balance < loss)
+        {
+            game.player.balance = 0;
+        }
+        else
+        {
+            game.player.balance = game.player.balance - loss;
+        }
+    }
+}
 //-=========================-
 
 
@@ -210,7 +240,7 @@ function changeHappiness(amount) {
 //-=========================-
 function updateDisplay() {
     let date = new Date(game.date); // Get current saved in-game date
-    let day = date.getDate() < 9 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
+    let day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
     let month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`; // Format month number
 
     updateUpcoming(); // Update upcoming expenses numbers
