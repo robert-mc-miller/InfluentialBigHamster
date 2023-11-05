@@ -1,11 +1,17 @@
-#purple{
+#purple {
     background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-main{
+footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+
+main {
     display: flex;
     height: 60vh;
     flex-direction: column;
@@ -13,7 +19,7 @@ main{
     justify-content: center;
 }
 
-input{
+input {
     border: 2px solid #5200FF;
     background-color: #121212;
     height: 3vh;
@@ -22,7 +28,7 @@ input{
     text-align: center;
 }
 
-button{ 
+button {
     background: linear-gradient(180deg, #5200FF 0%, #8D57FF 100%);
     border: none;
     border-radius: 10px;
@@ -32,7 +38,7 @@ button{
     color: #ffffff;
 }
 
-h2{
+h2 {
     background: linear-gradient(180deg, rgba(82, 0, 255, 0.50) 0%, rgba(141, 87, 255, 0.50) 100%);
     opacity: 0.6;
     background-clip: text;
@@ -54,12 +60,12 @@ h2{
 }
 
 @media only screen and (max-width: 600px) {
-	form{
+    form {
         display: flex;
         flex-direction: column;
     }
 
-    button{
+    button {
         margin-top: 2vh;
         width: 40vw;
     }
