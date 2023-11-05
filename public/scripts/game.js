@@ -41,6 +41,9 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessUpgrade').on("click", () => {
         levelUpgrade(); // Level up the house
     });
+    $('#happinessDowngrade').on("click", () => {
+        levelDowngrade(); // Level down the house
+    })
     $('#act1').on("click", () => {
         funActivity(1);
         closeModal("funActivities");
@@ -117,7 +120,12 @@ function increaseDate(n = 1) {
     dateElement.html(`${day}/${month}`); // Change displayed date
 
     randomEvent(n);
-    changeHappiness(-0.01 * n);
+    changeHappiness(-0.0025 * n);
+
+    for(let i = 1; i <= n; i++)
+    {
+        vibeCheck();
+    }
 
     /*
      * Calculate amount of times rent and food expense needs to be paid after n days
@@ -152,6 +160,7 @@ function payRent() {
         {
             game.player.level = game.player.level - 1; // if player cannot pay, downgrade
             unpaid("rent"); // Display message
+            game.player.balance = 0;
         }
     }
 }
@@ -162,30 +171,40 @@ function payFood() {
         game.player.balance -= determineFood();
     }
     else {
-        changeHappiness(-0.25); // Decrease happiness
+        changeHappiness(-0.10); // Decrease happiness
         unpaid("food"); // Display message
     }
 }
 
-function vibeCheck() {
-    if (game.player.happiness < 0.25) {
-        if (game.player.monthlyIncome >= 1250) {
-            game.player.monthlyIncome -= 500; // If player has higher income but low happinesss, won't lose as much
-        }
-        else {
-            game.player.monthlyIncome = 750;
+function vibeCheck() 
+{
+    if (game.player.happiness < 0.25) 
+    {
+        if (game.player.monthlyIncome >= 1250)
+        {
+            game.player.monthlyIncome -= 50; // If player has higher income but low happinesss, won't lose as much
         }
     }
 }
 
-function levelUpgrade() {
-    if (game.player.balance >= 500) // Only upgrade if player can afford it
+function levelUpgrade()
+{
+    if(game.player.balance >= 500) // Only upgrade if player can afford it
     {
-        game.player.balance -= 500; // Deduct from balance
+        game.player.balance -= (1500 + (100 * game.player.level)); // Deduct from balance
         game.player.level++; // Increase level
         changeHappiness(0.1); // Increase happiness
         updateDisplay(); // Update display to show new level
     }
+}
+
+function levelDowngrade()
+{
+    game.player.balance += 500;
+    game.player.level -= 1;
+    changeHappiness(-0.1);
+
+    updateDisplay();
 }
 
 function changeHappiness(amount) {
@@ -210,10 +229,12 @@ function closeEvent() {
 }
 
 function randomEvent(n) {
-    if (Math.floor(Math.random() * Math.ceil((20 - (10 * Math.tanh(n - 4) + 10)))) + 1 == 1) {
-        loss = ((Math.floor(Math.random() * 4) + 1) * 100);
+
+    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) {
+        loss = ((Math.floor(Math.random()*2)+1)*100);
         eventHappened(loss);
-        if (game.player.balance < loss) {
+        if(game.player.balance < loss)
+        {
             game.player.balance = 0;
         }
         else {
@@ -302,38 +323,40 @@ function error() {
 function workTask(menuChoice) { // Update values depending on type of work done
     switch (menuChoice) {
         case 1:                                                                                             // 
-            if (game.player.balance >= 100) {
+            if(game.player.balance >= 100)
+            {
                 game.player.monthlyIncome += 50;
-                game.player.balance -= 100;
+                game.player.balance -= 300;
                 changeHappiness(-0.03);
                 increaseDate();
             }
             break;
 
         case 2:                                                                                         // 
-            if (game.player.balance >= 300) {
+            if(game.player.balance >= 300)
+            {
                 game.player.monthlyIncome += 150;
-                game.player.balance -= 300;
+                game.player.balance -= 600;
                 changeHappiness(-0.06);
                 increaseDate(3);
             }
             break;
 
         case 3:
-            if (game.player.balance >= 500)                                                              //
+            if(game.player.balance >= 500)                                                              //
             {
                 game.player.monthlyIncome += 300;
-                game.player.balance -= 500;
+                game.player.balance -= 1000;
                 changeHappiness(-0.12);
                 increaseDate(7);
             }
             break;
 
         case 4:
-            if (game.player.balance >= 1050)                                                             //
+            if(game.player.balance >= 2100)                                                             //
             {
                 game.player.monthlyIncome += 600;
-                game.player.balance -= 1050;
+                game.player.balance -= 2100;
                 changeHappiness(-0.24);
                 increaseDate(14);
             }
@@ -344,33 +367,33 @@ function workTask(menuChoice) { // Update values depending on type of work done
 function funActivity(menuChoice) { // Update values depending on type of fun activity done
     switch (menuChoice) {
         case 1: // 
-            if (game.player.balance >= 300) {
+            if (game.player.balance >= 75) {
                 changeHappiness(0.06);
-                game.player.balance -= 300;
+                game.player.balance -= 75;
                 increaseDate();
             }
             break;
 
         case 2: // 
-            if (game.player.balance >= 510) {
+            if (game.player.balance >= 125) {
                 changeHappiness(0.12);
-                game.player.balance -= 510;
+                game.player.balance -= 125;
                 increaseDate(3);
             }
             break;
 
         case 3: //
-            if (game.player.balance >= 960) {
+            if (game.player.balance >= 250) {
                 changeHappiness(0.24);
-                game.player.balance -= 960;
+                game.player.balance -= 250;
                 increaseDate(7);
             }
             break;
 
         case 4: // 
-            if (game.player.balance >= 1800) {
+            if (game.player.balance >= 450) {
                 changeHappiness(0.48);
-                game.player.balance -= 1800;
+                game.player.balance -= 450;
                 increaseDate(14);
             }
             break;
