@@ -217,28 +217,23 @@ function changeHappiness(amount) {
     }
 }
 
-function eventHappened()
-{
+function eventHappened() {
     document.getElementById("event").style.display = "block";
 }
 
-function closeEvent()
-{
+function closeEvent() {
     document.getElementById("event").style.display = "none";
 }
 
-function randomEvent(n)
-{
-    if (Math.floor(Math.random()*Math.ceil((40 - (20*Math.tanh(n - 4) + 20)))) + 1 == 1)
-    {
+function randomEvent(n) {
+    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) {
         eventHappened();
         loss = ((Math.floor(Math.random()*2)+1)*100);
         if(game.player.balance < loss)
         {
             game.player.balance = 0;
         }
-        else
-        {
+        else {
             game.player.balance = game.player.balance - loss;
         }
     }
@@ -262,10 +257,10 @@ function updateDisplay() {
 
     updateUpcoming(); // Update upcoming expenses numbers
     $('#date').html(`${day}/${month}`); // Update displayed date
-    $('#rentPrice').html(`$${determineRent()}`); // Update displayed rent price
-    $('#foodPrice').html(`$${determineFood()}`); // Update displayed food price
-    $('#income').html(`Income (per month): ${game.player.monthlyIncome}`); // Update displayed income
-    $('#balance').html(`$${game.player.balance}`); // Update displayed balance
+    $('#rentPrice').html(`$${determineRent().toLocaleString()}`); // Update displayed rent price
+    $('#foodPrice').html(`$${determineFood().toLocaleString()}`); // Update displayed food price
+    $('#income').html(`Income (per month): $${game.player.monthlyIncome.toLocaleString()}`); // Update displayed income
+    $('#balance').html(`$${game.player.balance.toLocaleString()}`); // Update displayed balance
     $('#progress').attr('value', game.player.happiness * 100); // Update displayed happiness
     $('#level').html(game.player.level) // Update displayed level
 }
