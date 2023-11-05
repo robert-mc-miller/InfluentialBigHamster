@@ -24,6 +24,11 @@
     display: none;
 }
 
+.part{
+    width: 10vw;
+    text-align: center;
+}
+
 
 @media only screen and (max-width: 600px) {
     #headings{
