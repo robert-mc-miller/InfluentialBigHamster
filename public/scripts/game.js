@@ -267,6 +267,7 @@ function updateDisplay() {
     $('#balance').html(`$${game.player.balance.toLocaleString()}`); // Update displayed balance
     $('#progress').attr('value', game.player.happiness * 100); // Update displayed happiness
     $('#level').html(game.player.level) // Update displayed level
+    $('#upgradeCost').html(`Upgrade Cost: $${1500 + 100*game.player.level}`);
 }
 
 function updateBalance(rent, food) {
