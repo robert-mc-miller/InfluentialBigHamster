@@ -9,6 +9,10 @@
         'opsz' 24
 }
 
+a:visited {
+    color: white;
+}
+
 html,
 body {
     margin: 0;
