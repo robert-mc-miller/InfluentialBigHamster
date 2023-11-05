@@ -38,6 +38,9 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#incDate').on("click", () => { // When '+' button is pressed
         increaseDate(); // Increment date by 1
     });
+    $('#happinessUpgrade').on("click", () => {
+        levelUpgrade(); // Level up the house
+    });
 })
 // -==============================-
 
