@@ -219,8 +219,9 @@ function changeHappiness(amount) {
     }
 }
 
-function eventHappened() {
+function eventHappened(loss) {
     document.getElementById("event").style.display = "block";
+    scenarios(loss);
 }
 
 function closeEvent() {
@@ -228,9 +229,10 @@ function closeEvent() {
 }
 
 function randomEvent(n) {
+
     if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) {
-        eventHappened();
         loss = ((Math.floor(Math.random()*2)+1)*100);
+        eventHappened(loss);
         if(game.player.balance < loss)
         {
             game.player.balance = 0;
@@ -489,4 +491,26 @@ function createGame(username) {
         }
     })
 }
+// -=======================-
+
+
+/*
+ * -=======================-
+ * Random Event Messages
+ * -=======================-
+*/
+
+// -=======================-
+
+function scenarios(loss){
+    var text = ["Your washing machine broke. You bought a new one for $",
+"Your car broke down. You paid the mechanic $",
+"Your pet was sick. You paid the vet $",
+"You impulse bought cool things. You paid $",
+"You need a new laptop. You paid $"]
+
+    document.getElementById('alarmText').innerHTML = text[Math.floor(Math.random()*10)%5] + loss;
+
+}
+
 // -=======================-
