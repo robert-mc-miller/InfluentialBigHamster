@@ -19,95 +19,23 @@
         </span>
     </nav>
 
+    <div id="headings">
+        <h4>Pos</h4>
+        <h4>Username</h4>
+        <h4>Level</h4>
+        <h4>Money</h4>
+        <h4>Happiness</h4>
+    </div>
 
-<div id="headings">
-    <h4>Pos</h4>
-    <h4>Username</h4>
-    <h4>Level</h4>
-    <h4>Money</h4>
-    <h4>Happiness</h4>
-</div>
-
-<div class="user">
-    <p>1</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>2</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>3</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>4</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>5</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>6</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>7</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>8</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>9</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
-<div class="user">
-    <p>10</p>
-    <p>User1</p>
-    <p>10</p>
-    <p>$100</p>
-    <p>10%</p>
-</div>
-
+    <% for (let user of users) { %>
+    <div class="user">
+        <p><%= user.position %></p>
+        <p><%= user.username %></p>
+        <p><%= user.level %></p>
+        <p><%= user.balance %></p>
+        <p><%= user.happiness %></p>
+    </div>
+    <% } %>
 </body>
 </html>
 

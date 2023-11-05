@@ -11,11 +11,13 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static('public'))
 
+const gamesDir = path.resolve(__dirname, './games')
+
 app.post('/load', (req, res) => {
     const username = req.body.username
 
-    if (fs.existsSync(path.resolve(__dirname, `./games/${username}.json`))) {
-        const game = JSON.parse(fs.readFileSync(path.resolve(__dirname, `./games/${username}.json`)))
+    if (fs.existsSync(`${gamesDir}/${username}.json`)) {
+        const game = JSON.parse(fs.readFileSync(`${gamesDir}/${username}.json`))
         res.json(game)
     }
     else {
@@ -31,7 +33,7 @@ app.post('/save', (req, res) => {
         res.status(400)
     }
     else {
-        fs.writeFileSync(path.resolve(__dirname, `./games/${username}.json`), JSON.stringify(game))
+        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
         res.status(200)
     }
 })
@@ -39,7 +41,7 @@ app.post('/save', (req, res) => {
 app.post('/create', (req, res) => {
     const username = req.body.username
 
-    if (fs.existsSync(path.resolve(__dirname, `./games/${username}.json`))) {
+    if (fs.existsSync(`${gamesDir}/${username}.json`)) {
         res.status(400)
     }
     else {
@@ -54,7 +56,7 @@ app.post('/create', (req, res) => {
             }
         }
 
-        fs.writeFileSync(path.resolve(__dirname, `./games/${username}.json`), JSON.stringify(game))
+        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
         res.status(200)
     }
 })
@@ -62,19 +64,19 @@ app.post('/create', (req, res) => {
 app.post('/login', bodyParser.urlencoded({ extended: false }), (req, res) => {
     const username = req.body.username
 
-    if (!fs.existsSync(path.resolve(__dirname, `./games/${username}.json`))) {
+    if (!fs.existsSync(`${gamesDir}/${username}.json`)) {
         const game = {
             username,
             date: 0,
             player: {
-                monthlyIncome: 1600,
-                balance: 0,
+                monthlyIncome: 600,
+                balance: 1000,
                 happiness: 1,
                 level: 0
             }
         }
 
-        fs.writeFileSync(path.resolve(__dirname, `./games/${username}.json`), JSON.stringify(game))
+        fs.writeFileSync(`${gamesDir}/${username}.json`, JSON.stringify(game))
     }
 
     res.cookie('username', username)
@@ -90,11 +92,25 @@ app.get('/', (req, res) => {
 })
 
 app.get('/leaderboard', (req, res) => {
-    res.render('leaderboard')
+    const users = []
+    const files = fs.readdirSync(gamesDir)
+
+    for (let i = 0; i < files.length; i++) {
+        const game = JSON.parse(fs.readFileSync(`${gamesDir}/${files[i]}`))
+        users.push({
+            position: i + 1,
+            username: game.username,
+            level: game.player.level,
+            balance: game.player.balance,
+            happiness: game.player.happiness
+        })
+    }
+
+    res.render('leaderboard', { users })
 })
 
-if (!fs.existsSync(path.resolve(__dirname, './games/'))) {
-    fs.mkdirSync(path.resolve(__dirname, './games/'))
+if (!fs.existsSync(gamesDir)) {
+    fs.mkdirSync(gamesDir)
 }
 
 app.listen(8080, () => {
