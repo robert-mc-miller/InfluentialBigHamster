@@ -110,7 +110,7 @@ function increaseDate(n = 1)
     let dateElement = document.getElementById("date"); // Get tag containing displayed date
     let date = new Date(game.date); // Store saved game date as Date() for use
     let newDate = new Date(date.getTime() + n * msInADay); // Add n days converted to ms to current saved date converted to ms
-    let day = newDate.getDate() < 9 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
+    let day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`; // Format day number
     let month = newDate.getMonth() < 9 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`; // Format month number
 
     game.date = newDate.getTime(); // Save new date
@@ -186,9 +186,9 @@ function vibeCheck()
 
 function levelUpgrade()
 {
-    if(game.player.balance >= 500) // Only upgrade if player can afford it
+    if(game.player.balance >= 1500 + (100 * game.player.level)) // Only upgrade if player can afford it
     {
-        game.player.balance -= 500; // Deduct from balance
+        game.player.balance -= (1500 + (100 * game.player.level)); // Deduct from balance
         game.player.level++; // Increase level
         changeHappiness(0.1); // Increase happiness
         updateDisplay(); // Update display to show new level
@@ -225,7 +225,7 @@ function changeHappiness(amount)
 function updateDisplay()
 {
     let date = new Date(game.date); // Get current saved in-game date
-    let day = date.getDate() < 9 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
+    let day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`; // Format day number
     let month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`; // Format month number
 
     updateUpcoming(); // Update upcoming expenses numbers
@@ -300,40 +300,40 @@ function workTask(menuChoice){ // Update values depending on type of work done
     switch(menuChoice)
     {
         case 1:                                                                                             // 
-            if(game.player.balance >= 100)
+            if(game.player.balance >= 300)
             {
                 game.player.monthlyIncome += 50;
-                game.player.balance -= 100;
+                game.player.balance -= 300;
                 changeHappiness(-0.03);
                 increaseDate();
             }
             break;
 
         case 2:                                                                                         // 
-            if(game.player.balance >= 300)
+            if(game.player.balance >= 600)
             {
                 game.player.monthlyIncome += 150;
-                game.player.balance -= 300;
+                game.player.balance -= 600;
                 changeHappiness(-0.06);
                 increaseDate(3);
             }
             break;
         
         case 3:
-            if(game.player.balance >= 500)                                                              //
+            if(game.player.balance >= 1000)                                                              //
             {
                 game.player.monthlyIncome += 300;
-                game.player.balance -= 500;
+                game.player.balance -= 1000;
                 changeHappiness(-0.12);
                 increaseDate(7);
             }
             break;
         
         case 4:
-            if(game.player.balance >= 1050)                                                             //
+            if(game.player.balance >= 2100)                                                             //
             {
                 game.player.monthlyIncome += 600;
-                game.player.balance -= 1050;
+                game.player.balance -= 2100;
                 changeHappiness(-0.24);
                 increaseDate(14);
             }
