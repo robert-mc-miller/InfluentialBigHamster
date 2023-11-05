@@ -27,8 +27,8 @@
 
     <div id="upgrades" class="modal">
         <button id="happinessUpgrade" onclick="closeModal('upgrades')">Upgrade House</button>
-
         <button id="cancel" onclick="closeModal('upgrades')">Cancel</button>
+        <button id="happinessDowngrade" onclick="closeModal('upgrades')">Downgrade House</button>
     </div>
 
     <div id="funActivities" class="modal">
@@ -43,10 +43,10 @@
     </div>
 
     <div id="learnActivities" class="modal">
-        <button id="learn1">+$50 Income<br>-$100<br>-3%<br>1 day</button>
-        <button id="learn2">+$150 Income<br>-$300<br>-6%<br>3 days</button>
-        <button id="learn3">+$300 Income<br>-$500<br>-12%<br>7 days</button>
-        <button id="learn4">+$600 Income<br>-$1050<br>-24%<br>14 days</button>
+        <button id="learn1">+$50 Income<br>-$300<br>-3%<br>1 day</button>
+        <button id="learn2">+$150 Income<br>-$600<br>-6%<br>3 days</button>
+        <button id="learn3">+$300 Income<br>-$1000<br>-12%<br>7 days</button>
+        <button id="learn4">+$600 Income<br>-$2100<br>-24%<br>14 days</button>
         <span>
             <button onclick="closeModal('learnActivities')">Cancel</button>
         </span>
@@ -59,6 +59,7 @@
             <p id="happiness">Happiness:</p>
             <progress id="progress" class="progress" value="60" max="100"></progress>
             <p id="income">Income (per month): $</p>
+            <p id="upgradeCost">Upgrade Cost: $</p>
         </div>
 
         <div id="character">
@@ -86,10 +87,14 @@
         <button class="buttons2" id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
         <span class="buttons1">
             <button id="fun" onclick="openModal('funActivities')"><img src="/assets/images/Material Symbols (2)..svg"></button>
-            <h1 id="level">0</h1>
+            <span>
+                <p>Lvl.</p>
+                <h1 id="level">0</h1>
+            </span>
             <button id="learn" onclick="openModal('learnActivities')"><img src="/assets/images/Material Symbols and Icons (2)..svg"></button>
         </span>
     </div>
+
 
     <div class="modal" id="error">
         <div id="errorDis">
