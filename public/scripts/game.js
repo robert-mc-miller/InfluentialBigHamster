@@ -44,7 +44,7 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessDowngrade').on("click", () => {
         levelDowngrade(); // Level down the house
     })
-    $('#act1').on("click", () => {
+    $('#act1').on("click", () => { // Assign functions to all activity buttons
         funActivity(1);
         closeModal("funActivities");
     });
@@ -140,12 +140,14 @@ function increaseDate(n = 1) {
         nRentToPay++;
     }
 
-    nFoodToPay = Math.floor(n / 7); // Pay food price for every 7 days
-
-    if (getUpcomingFood() == "Today") // Fix this later to work for all values of n
+    for (let d = 0; d < n; d++)
     {
-        nFoodToPay = 1;
+        if((date.getDay() + d) % 7 == firstDayOfWeek) // For each week passed, pay food
+        {
+            nFoodToPay++;
+        }
     }
+
     updateBalance(nRentToPay, nFoodToPay); // Update balance by paying for rent and food n number of times
     updateDisplay(); // Update display of values with new values
 }
@@ -210,7 +212,7 @@ function levelDowngrade()
     }
 }
 
-function changeHappiness(amount) {
+function changeHappiness(amount) { // Clamp value of happiness to 0 or 1 when adding or subtracting
     if ((game.player.happiness + amount) > 1) {
         game.player.happiness = 1;
     }
@@ -223,26 +225,20 @@ function changeHappiness(amount) {
 }
 
 function eventHappened(loss) {
-    document.getElementById("event").style.display = "block";
+    $('#event').css("display", "block"); // Display event popup with randomised message
     scenarios(loss);
 }
 
-function closeEvent() {
-    document.getElementById("event").style.display = "none";
+function closeEvent() { //
+    $('#event').css("display", "none"); // Remove event popup
 }
 
 function randomEvent(n) {
 
-    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) {
-        loss = ((Math.floor(Math.random()*2)+1)*100);
+    if (Math.floor(Math.random() * Math.ceil((40 - (40 * Math.tanh(n - 4) + 40)))) + 1 == 1) { // Probability of number == 1 depends on how many days pass
+        loss = Math.round((0.3 * Math.sin(Math.random() * Math.PI/2 + 0.1)) * game.player.balance); // Player can lose a percentage within the range of 10% and 40%
         eventHappened(loss);
-        if(game.player.balance < loss)
-        {
-            game.player.balance = 0;
-        }
-        else {
-            game.player.balance = game.player.balance - loss;
-        }
+        game.player.balance = game.player.balance - loss; // Reduce player balance
     }
 }
 //-=========================-
@@ -270,7 +266,7 @@ function updateDisplay() {
     $('#balance').html(`$${game.player.balance.toLocaleString()}`); // Update displayed balance
     $('#progress').attr('value', game.player.happiness * 100); // Update displayed happiness
     $('#level').html(game.player.level) // Update displayed level
-    $('#upgradeCost').html(`Upgrade Cost: $${1500 + 100*game.player.level}`);
+    $('#upgradeCost').html(`Upgrade Cost: $${1500 + 100*game.player.level}`); // Update value of upgrade cost
 }
 
 function updateBalance(rent, food) {
@@ -508,12 +504,12 @@ function createGame(username) {
 
 function scenarios(loss){
     var text = ["Your washing machine broke. You bought a new one for $",
-"Your car broke down. You paid the mechanic $",
-"Your pet was sick. You paid the vet $",
-"You impulse bought cool things. You paid $",
-"You need a new laptop. You paid $"]
+                "Your car broke down. You paid the mechanic $",
+                "Your pet was sick. You paid the vet $",
+                "You impulse bought cool things. You paid $",
+                "You need a new laptop. You paid $"]
 
-    document.getElementById('alarmText').innerHTML = text[Math.floor(Math.random()*10)%5] + loss;
+    $('#alarmText').html(text[Math.floor(Math.random()*10)%5] + loss);
 
 }
 
