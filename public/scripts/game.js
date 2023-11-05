@@ -44,7 +44,7 @@ $('document').ready(() => { // Run when HTML is loaded
     $('#happinessDowngrade').on("click", () => {
         levelDowngrade(); // Level down the house
     })
-    $('#act1').on("click", () => {
+    $('#act1').on("click", () => { // Assign functions to all activity buttons
         funActivity(1);
         closeModal("funActivities");
     });
@@ -140,12 +140,14 @@ function increaseDate(n = 1) {
         nRentToPay++;
     }
 
-    nFoodToPay = Math.floor(n / 7); // Pay food price for every 7 days
-
-    if (getUpcomingFood() == "Today") // Fix this later to work for all values of n
+    for (let d = 0; d < n; d++)
     {
-        nFoodToPay = 1;
+        if((date.getDay() + d) % 7 == firstDayOfWeek)
+        {
+            nFoodToPay++;
+        }
     }
+
     updateBalance(nRentToPay, nFoodToPay); // Update balance by paying for rent and food n number of times
     updateDisplay(); // Update display of values with new values
 }
